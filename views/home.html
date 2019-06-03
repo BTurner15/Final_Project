@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Bruce Turner, Professor Ostrander, Spring 2019 -->
+<!-- IT 328 Full Stack Web Development -->
+<!-- Final Project -->
+<!-- file: views/home.html -->
+<!-- date: June 3 2019 -->
+<head>
+    <meta charset="UTF-8">
+    <title>My Dating IV Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm  navbar-default">
+        <a class="navbar-brand" href="/328/Final_Project/view">View Bucket</a>
+        <a class="navbar-brand" href="/328/Final_Project/search">Search Bucket</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+<div class="container border mt-1">
+    <div class="row ml-2">
+        <div class="col-sm-6">
+            <h1 class="text-center">Bucket</h1>
+            <p class="text-center"></h5>
+            <hr/>
+            <p><i></i> </p>
+            <p><i></i> </p>
+            <p><i></i> </p>
+            <hr/>
+        </div>
+        <div class="col-sm-6">
+            <img class="img-responsive rounded" src="images/Bucket.JPG" style="width:400px" alt="Bucket" >
+        </div>
+    </div>
+    <form action="add" method="GET">
+        <div class="col-sm-6 text-center">
+            <button type="submit" class="btn-primary btn center rounded">Add a Milestone!</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
