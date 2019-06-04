@@ -44,6 +44,8 @@ $f3->route('GET /', function(){
     echo $view->render('views/home.html');
 
 });
+
+
 //Define a personal information route
 $f3->route('GET|POST /perinfo', function($f3) {
     //Display personal information, upon completion REROUTES to profile
@@ -110,34 +112,9 @@ $f3->route('GET|POST /perinfo', function($f3) {
 });
 //Define a debug route
 $f3->route('GET|POST /debug', function() {
-    // here we will instantiate two Members, one a "regular" Member, and another
-    // a PremiumMember. Then use print_r() to look at them, and test the getters and setters
-
-        $buckaroo = new Member('Buckaroo','Turner','24',
-                             'Male','1234567890');
-
-        $summer = new PremiumMember('Summer', 'Turner', '18',
-                               'Female', '0987654321','Summer@gmail.com',
-                                 'WA', 'Male', 'The best female ever!');
-        print_r($buckaroo);
-        echo "<br>"; echo "<br>";
-        $buckaroo->setSeeking("FEMALE");
-        $buckaroo->setState("PA");
-        $buckaroo->setEmail("Buckaroo@foo.com");
-        $buckaroo->setBio("I came to live with Papi, and then Summer joined us");
-
-        print_r($summer);
-        echo "<br>"; echo "<br>";
-        $summer->setIndoor("in_1 in_2 in_3");
-        $summer->setOutdoor("o_A o_B o_C");
-        print_r($summer);
-
-        echo "<br>"; echo "<br>";
-        print_r($buckaroo);
-        //try something you should NOT be able to do: display interests on Member
-        echo "<br>"; echo $summer->getIndoor();
-        //$buckaroo->setOutdoor("this should error out"); // it does, kind of
-
+    //display landing page Template, which POSTS to personal information
+    $view = new Template();
+    echo $view->render('views/carousel.html');
 });
 //Define a profile route
 $f3->route('GET|POST /profile', function($f3) {
