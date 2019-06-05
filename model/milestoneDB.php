@@ -22,7 +22,7 @@
 // the above is 80 characters
 /*
  * //"Copy your CREATE TABLE statements into a block comment at the top of your
- * //Member class."
+ * //Milestone class."
 
 CREATE TABLE bucket(`id` int PRIMARY KEY,
                        `title` varchar(72) DEFAULT NULL,
@@ -38,11 +38,12 @@ CREATE TABLE bucket(`id` int PRIMARY KEY,
                        `day` int DEFAULT NULL,
                        `month` int DEFAULT NULL,
                        `year` int DEFAULT NULL,
-                       `season` varchar(6) DEFAULT NULL,
-                       `image` varchar(255) DEFAULT NULL
+                       `season` varchar(8) DEFAULT NULL,
+                       `image` varchar(255) DEFAULT NULL,
+                       `ongoing` tinyint DEFAULT NULL
                         );
 */
-// First, provide the database connection via the required database credentials
+// Provide the database connection with the required database credentials
 // stored as constants outside of public_html
 require('/home/bturnerg/config.php');
 
@@ -112,7 +113,7 @@ class MilestoneDB
     }
 
     function getMilestones()
-    {   // get ALL the milestone rows (the ENTIRE bucket if you will
+    {   // get all the milestone rows (the entire bucket if you will
         global $dbM;
 
         $dbM = $this->connect();
@@ -141,7 +142,7 @@ class MilestoneDB
         $dbM = $this->connect();
         // 1. define the query
 
-        $sql = "INSERT INTO member(`fname`, `lname`, `age`, `gender`, `phone`, `email`, `state`, `seeking`, `bio`, `premium`, `image`)
+        $sql = "INSERT INTO bucket(`fname`, `lname`, `age`, `gender`, `phone`, `email`, `state`, `seeking`, `bio`, `premium`, `image`)
             VALUES (:fname, :lname, :age, :gender, :phone, :email, :state, :seeking, :bio, :premium, :image)";
 
         // 2. prepare the statement
@@ -168,30 +169,30 @@ class MilestoneDB
 
     }
 
-    function getMember($milestone_id)
+    function getMilestone($id)
     {
         global $dbM;
         $dbM = $this->connect();
 
         // 1. define the query
-        $sql = "SELECT * FROM bucket WHERE milestone_id = :id";
+        $sql = "SELECT * FROM bucket WHERE id = :id";
 
         // 2. prepare the statement
         $statement = $dbM->prepare($sql);
 
         // 3. bind parameters
-        $statement->bindParam(':id', $milestone_id, PDO::PARAM_INT);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
 
         // 4. execute the statement
         $statement->execute();
 
         // 5. return the result
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
 
         //check if this is a premium member
-        if ($result['premium'] == 1) {
+        /*
+        if ($result['ongoing'] == 1) {
             //my efforts here fail
-
             return new PremiumMember($result['fname'], $result['lname'], $result['age'],
                 $result['gender'], $result['phone'], $result['email'], $result['state'],
                 $result['seeking'], $result['bio'], "");
@@ -202,6 +203,8 @@ class MilestoneDB
                               $result['gender'], $result['phone'], $result['email'], $result['state'],
                               $result['seeking'], $result['bio']);
         }
+*/
+        return $row;
     }
     function close()
     {
