@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- Bruce Turner, Professor Ostrander, Spring 2019 -->
+<!-- IT 328 Full Stack Web Development -->
+<!-- Final Project -->
+<!-- file: views/all-milestones.html -->
+<!-- date: June 4 2019 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <title>Bucket</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm  navbar-default">
+    <a class="navbar-brand" href="/328/Final_Project/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"><span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+    <h1>Bucket List of Milestones</h1>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Month</th>
+        <th scope="col">Day</th>
+        <th scope="col">Year</th>
+        <th scope="col">Ongoing?</th>
+    </tr>
+    </thead>
+
+
+    <tbody>
+        <repeat group ="{{ @milestones }}" value="{{ @milestone }}">
+            <tr>
+                <td><a href="{{ @BASE }}/displayOne/{{ @milestone['id'] }}">
+                    {{ @milestone['id'] }}</a></td>
+                    <td>{{ @milestone['title'] }}</td>
+                    <td>{{ @milestone['priority'] }}</td>
+                    <td>{{ @milestone['month'] }}</td>
+                    <td>{{ @milestone['day'] }}</td>
+                    <td>{{ @milestone['year'] }}</td>
+                    <td>
+                    <input type="checkbox" disabled
+                    <check if="{{ @milestone['ongoing']==1}}">
+                        checked
+                    </check>
+                    >
+                    </td>
+            </tr>
+        </repeat>
+    </tbody>
+
+</table>
+</body>
+</html>
