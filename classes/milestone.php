@@ -3,8 +3,8 @@
  * Bruce Turner, Professor Ostrander, Spring 2019
  * IT 328 Full Stack Web Development
  * Final Project Assignment:
- * file: Milestone.php
- * date: Thursday, June 6 2019
+ * file: milestone.php
+ * date: Friday, June 7 2019
  * class Milestone
  *
  * Here I want to conform to the required PEAR coding standards from the git go

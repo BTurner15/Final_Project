@@ -1,12 +1,12 @@
 <?php
 /* Bruce Turner, Professor Ostrander, Spring 2019
  * IT 328 Full Stack Web Development
- * Dating IV Assignment: with form validation & sticky forms
+ * Final Project: with form validation & sticky forms
  * file: validation-functions.php
- * date: Monday, May 27 2019
+ * date: Friday, June 7 2019
  * "
  * validName() checks to see that a string is all alphabetic
- * validAge() checks to see that an age is numeric and between 18 and 118
+ * validNumberRange() checks to see that an value is numeric and between 1 and 10
  * validPhone() checks to see that a phone number is valid
  * (you can decide what constitutes a “valid” phone number)
  * validEmail() checks to see that an email address is valid
@@ -18,7 +18,7 @@
 /* Validate the personal information form
  * @return boolean
  */
-function validPerinfoForm()
+function validInitialForm()
 {
     global $f3;
     global $_SESSION;
@@ -43,7 +43,7 @@ function validPerinfoForm()
     if (!validAge($f3->get('age'))) {
 
         $isValid = false;
-        $f3->set("errors['age']", "Please enter a numeric age in the range 18 to 118");
+        $f3->set("errors['age']", "Please enter a numeric age in the range 1 to 10");
     }
     else{
         $_SESSION['age'] = $_POST['age'];

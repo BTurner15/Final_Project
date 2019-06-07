@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <!-- Bruce Turner, Professor Ostrander, Spring 2019 -->
 <!-- IT 328 Full Stack Web Development -->
-<!-- Dating III Assignment -->
-<!-- file: views/perinfo.html -->
-<!-- date: Thursday 16 2019 -->
-<!-- version: 2.0 -->
+<!-- Final Project Assignment-->
+<!-- File: add-milestone.html -->
+<!-- Date: Friday June 7 -->
 <html lang="en">
 <head>
      <meta charset="UTF-8">
-     <title>My Dating II Site</title>
+     <title>Add Milestone</title>
      <meta name="viewport" content="width=device-width, initial-scale=1">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -19,14 +18,15 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-sm  navbar-default">
-     <a class="navbar-brand" href="#">My Dating Website</a>
+     <a class="navbar-brand" href="/328/Final_Project/">Home</a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"><span class="navbar-toggler-icon"></span>
      </button>
 </nav>
+
 <div class="container border mt-4">
      <div class="row ml-2">
           <div class="col-sm-12">
-               <h1>Personal Information</h1>
+               <h1>Milestone POC Information</h1>
           </div>
      </div>
      <form class="form-group" method="post" action="#">
@@ -46,44 +46,50 @@
                               <span class="err">{{ @errors['lname'] }}</span>
                          </check>
                     </label><br>
-                    <strong>Age</strong><br>
-                    <label class="form-control-label" >
-                         <input id="age" required class="form-control" type="text" name="age" value="{{ @SESSION['age'] }}">
-                         <check if="{{ @errors['age'] }}">
-                              <span class="err">{{ @errors['age'] }}</span>
-                         </check>
-                    </label><br>
-                    <p><strong>Gender</strong>
-                         <check if="{{ @errors['gender'] }}">
-                              <span class="err">{{ @errors['gender'] }}</span>
-                         </check><br>
-                         <repeat group="{{ @genders }}" value="{{ @genderOption }}">
-                              <label><input type="radio" name="gender" value="{{ @genderOption }}"
-                                   <check if="{{ @genderOption == @gender }}">
-                                        checked="checked"
-                                   </check>
-                                   >{{ @genderOption }}
-                              </label><br>
-                         </repeat>
-                    </p>
+
                     <strong>Phone Number</strong><br>
                     <label>
                          <input id="phone" required class="form-control" type="tel" name="phone" value="{{ @SESSION['phone'] }}"><br>
-                    </label>
+                    </label><br>
+                    <strong>Email</strong><br>
+                    <label>
+                         <input id="email" required class="form-control" type="email" name="email" value="{{ @SESSION['email'] }}">
+                    </label><br>
                     <div class="form-group">
-                         <label class="font-weight-bold" for="premium">Premium Membership:</label>
+                         <label class="font-weight-bold" for="ongoing">Ongoing Milestone:</label>
                          <br />
-                         <label><input type="checkbox" value="" name="premium" id="premium"
-                              <check if="{{isset(@SESSION.premium)}}" >
+                         <label><input type="checkbox" value="" name="ongoing" id="ongoing"
+                              <check if="{{isset(@SESSION.ongoing)}}" >
                                    checked
-                              </check>> Sign me up for a Premium Account!</label>
+                              </check>> This Milestone has a completion date TBD</label>
                     </div>
                </div> <!-- end row#1 col one-->
                <div class="col-sm-4">
-                    <div class="container text-center" style="">
-                    <p class="bg-light border"><strong>Note: </strong>All information entered is protected by our <span style="color:lightskyblue">privacy policy</span>.
-                         Profile information can only be viewed by others with your permission.</p>
-                    </div>
+                     <strong>Street Address</strong><br>
+                     <label class="form-control-label" >
+                         <input id="StreetAddress" required class="form-control" type="text" name="streetAddress" value="{{ @SESSION['streetAddress'] }}">
+                          <check if="{{ @errors['streetAddress'] }}">
+                             <span class="err">{{ @errors['streetAddress'] }}</span>
+                          </check>
+                     </label><br>
+                     <strong>City</strong><br>
+                     <label class="form-control-label" >
+                         <input id="city" required class="form-control" type="text" name="city" value="{{ @SESSION['city'] }}">
+                         <check if="{{ @errors['city'] }}">
+                              <span class="err">{{ @errors['city'] }}</span>
+                         </check>
+                     </label><br>
+                     <strong>Province</strong><br>
+                     <label class="form-control-label" >
+                         <input id="province" required class="form-control" type="text" name="province" value="{{ @SESSION['province'] }}">
+                         <check if="{{ @errors['province'] }}">
+                             <span class="err">{{ @errors['province'] }}</span>
+                         </check>
+                     </label><br>
+                     <strong>Postal Code</strong><br>
+                     <label>
+                         <input id="postalCode" required class="form-control" type="text" name="postalCode" value="{{ @SESSION['postalCode'] }}"><br>
+                     </label><br>
                </div>
           </div> <!-- end row#1 -->
           <div id="btn" class="container text-md-right pb-2">
