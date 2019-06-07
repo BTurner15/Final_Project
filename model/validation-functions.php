@@ -5,7 +5,7 @@
  * file: validation-functions.php
  * date: Friday, June 7 2019
  * "
- * validName() checks to see that a string is all alphabetic
+ * validPOCname() checks to see that a string is all alphabetic
  * validNumberRange() checks to see that an value is numeric and between 1 and 10
  * validPhone() checks to see that a phone number is valid
  * (you can decide what constitutes a “valid” phone number)
@@ -15,7 +15,7 @@
  * "
 */
 
-/* Validate the personal information form
+/* Validate the POC information form
  * @return boolean
  */
 function validInitialForm()
@@ -24,38 +24,15 @@ function validInitialForm()
     global $_SESSION;
     $isValid = true;
 
-    if (!validName($f3->get('fname'))) {
+    if (!validPOCname($f3->get('pocName'))) {
 
         $isValid = false;
-        $f3->set("errors['fname']", "Please enter an alphabetic first name");
+        $f3->set("errors['pocName']", "Please enter an alphabetic POC name");
     }
     else{
-        $_SESSION['fname'] = $_POST['fname'];
+        $_SESSION['pocName'] = $_POST['pocName'];
     }
-    if (!validName($f3->get('lname'))) {
 
-        $isValid = false;
-        $f3->set("errors['lname']", "Please enter an alphabetic last name");
-    }
-    else{
-        $_SESSION['lname'] = $_POST['lname'];
-    }
-    if (!validAge($f3->get('age'))) {
-
-        $isValid = false;
-        $f3->set("errors['age']", "Please enter a numeric age in the range 1 to 10");
-    }
-    else{
-        $_SESSION['age'] = $_POST['age'];
-    }
-    if (!validGender($f3->get('gender'))) {
-
-        $isValid = false;
-        $f3->set("errors['gender']", "Please select a gender");
-    }
-    else{
-        $_SESSION['gender'] = $_POST['gender'];
-    }
     if (!validPhoneNumber($f3->get('phone'))) {
         //require a number totaling 10 digits
         $isValid = false;
@@ -65,35 +42,45 @@ function validInitialForm()
         $_SESSION['phone'] = $_POST['phone'];
     }
 
+    if (!validEmail($f3->get('email'))) {
+
+        $isValid = false;
+        $f3->set("errors['email']", "Please enter an correct email address");
+    }
+    else{
+        $_SESSION['email'] = $_POST['email'];
+    }
+
+    if (!validStreet($f3->get('streetAddress'))) {
+
+        $isValid = false;
+        $f3->set("errors['streetAddress']", "Please enter an alpha-numeric street address");
+    }
+    else{
+        $_SESSION['streetAddress'] = $_POST['streetAddress'];
+    }
+
+
     return $isValid;
 }
-
-    /* validate an age value
-     * @param String age
-     * @return boolean
-     *
-     */
-    function validAge($age)
-    {
-        return !empty($age) && ctype_digit($age) && ((int)$age >= 18 && (int)$age <= 118);
-    }
 
     /* Validate a name string
      * @param String $name
      * @return boolean if name is not empty, and all alphabetic
      */
-    function validName($name)
+    function validPOCname($name)
     {
         return ctype_alpha($name) AND ($name != "");
     }
 
-    /* Validate a gender value
-     * @param gender $gender
-     * @return boolean if gender is not empty, and all alphabetic
+    /* Validate a street address value
+     * @param String $streetAddress
+     * @return boolean if streetAddress is alpha-numeric, for example "123 Main St)
+     *
      */
-    function validGender($gender)
+    function validStreet($streetAddress)
     {
-        return ctype_alpha($gender) AND ($gender != "");
+        return ctype_alnum($streetAddress) AND ($streetAddress != "");
     }
 
     /* validate an phone number value input as a string
@@ -106,20 +93,12 @@ function validInitialForm()
         return !empty($phone) && ctype_digit($phone);
     }
 
+
     function validProfileForm()
     {
         global $f3;
         global $_SESSION;
         $isValid = true;
-
-        if (!validEmail($f3->get('email'))) {
-
-            $isValid = false;
-            $f3->set("errors['email']", "Please enter an correct email address");
-        }
-        else{
-            $_SESSION['email'] = $_POST['email'];
-        }
 
         if (!validSeekSex($f3->get('seekSex')))
         {

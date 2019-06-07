@@ -108,8 +108,7 @@ $f3->route('GET|POST /add', function($f3)
     // point-of-contact (POC) section of information
     if(!empty($_POST)) {
         //Get data from form
-        $fname = $_POST['fname'];
-        $lname = $_POST['lname'];
+        $pocName = $_POST['pocName'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
         $streetAddress = $_POST['streetAddress'];
@@ -118,8 +117,7 @@ $f3->route('GET|POST /add', function($f3)
         $postalCode = $_POST['postalCode'];
 
         //Add data to hive
-        $f3->set('fname', $fname);
-        $f3->set('lname', $lname);
+        $f3->set('pocName', $pocName);
         $f3->set('phone', $phone);
         $f3->set('email', $email);
         $f3->set('streetAddress', $streetAddress);
@@ -130,8 +128,7 @@ $f3->route('GET|POST /add', function($f3)
         if (validInitialForm()) {
 
             //Write data to Session
-            $_SESSION['fname'] = $_POST['fname'];
-            $_SESSION['lname'] = $_POST['lname'];
+            $_SESSION['pocName'] = $_POST['pocName'];
             $_SESSION['phone'] = $_POST['phone'];
             $_SESSION['email'] = $_POST['email'];
             $_SESSION['streetAddress'] = $_POST['streetAddress'];
@@ -140,6 +137,7 @@ $f3->route('GET|POST /add', function($f3)
             $_SESSION['postalCode'] = $_POST['postalCode'];
             //now fold in the classes...parse on OngoingMilestone checkbox, if we are in a  mode with
             //an "ordinary" Milestone then !ongoing will be true ONLY THIS TIME until submitted
+            //Fat-Free does NOT even waste storage for a "false" value
 
             //be careful here, if it is not set it doesnt exist!
             if(!isset($_POST['ongoing']))
@@ -153,7 +151,7 @@ $f3->route('GET|POST /add', function($f3)
             }
             else
             {
-                $ms = new OngoingMilestone($_SESSION['fname'],$_SESSION['lname'],
+                $ms = new OngoingMilestone($_SESSION['pocName'],
                                            $_SESSION['phone']);
                 $_SESSION['ongoing'] = "1";
             }
@@ -163,11 +161,16 @@ $f3->route('GET|POST /add', function($f3)
 
             //need more data regardless of milestone (ms) type
 
-            $f3->reroute('/required-data');
+            $f3->reroute('/milestone-profile');
         }
     }
     $view = new Template();
-    echo $view->render('views/add-milestone.html');
+    echo $view->render('views/required-data.html');
+});
+
+$f3->route('GET|POST /milestone-profile', function($f3) {
+    global $dbM;
+
 });
 //Run fat free
 $f3->run();
