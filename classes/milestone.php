@@ -1,6 +1,25 @@
 <?php
-
-
+/**
+ * Bruce Turner, Professor Ostrander, Spring 2019
+ * IT 328 Full Stack Web Development
+ * Final Project Assignment:
+ * file: Milestone.php
+ * date: Thursday, June 6 2019
+ * class Milestone
+ *
+ * Here I want to conform to the required PEAR coding standards from the git go
+ * " Apply PEAR Standards to your class files, including a class-level docblock
+ *   above each class, and a docblock above each function. "
+ *
+ * indent 4 spaces
+ * line length max 80 characters
+ * class names begin with a upper case
+ * private members (variables & functions) are preceded with an underscore
+ * constants are all Uppercase
+ * add PHPDoc to each class & function
+ */
+//3456789_123456789_123456789_123456789_123456789_123456789_123456789_1234567890
+// the above is 80 characters
 class Milestone
 {
     private $_id;
@@ -8,7 +27,7 @@ class Milestone
     private $_priority;
     private $_location;
     private $_investment;
-    private $_occurance;
+    private $_occurence;
     private $_image;
     private $_ongoing;
 
@@ -17,37 +36,47 @@ class Milestone
      * @param $id
      * @param $title
      * @param $priority
-     * @param $location
-     * @param $investment
-     * @param $occurance
+     * @param $POCName (for Location constructor)
+     * @param $streetAddress (for Location constructor)
+     * @param $city (for Location constructor)
+     * @param $province (for Location constructor)
+     * @param $postalCode (for Location constructor)
+     * @param $day (for Occurence constructor 1..31)
+     * @param $month (for Occurence constructor 1...12)
+     * @param $year (for Occurence constructor YYYY)
+     * @param $season ('Fall', 'Winter', 'Spring', 'Summer', or 'All year')
+     * @param $cost (for Investment constructor, US dollars estimate)
+     * @param $timeTravel (for Investment constructor, day spent both ways)
+     * @param $timeVisit (for Investment constructor, total days anticipated
      * @param $image
      * @param $ongoing
      */
-    public function __construct($id, $title, $priority, $location = "", $investment = "",
-                                $occurance = "", $image, $ongoing = "")
+    public function __construct($id, $title, $priority, $POCName, $streetAddress, $city,
+                                $province, $postalCode, $cost, $timeTravel, $timeVisit, $day,
+                                $month, $year, $season, $image, $ongoing)
     {
         $this->_id = $id;
         $this->_title = $title;
         $this->_priority = $priority;
-        $this->_location = $location;
-        $this->_investment = $investment;
-        $this->_occurence = $occurance;
+        $this->_location = new Location($POCName, $streetAddress, $city, $province, $postalCode );
+        $this->_investment = new Investment($cost, $timeTravel, $timeVisit);
+        $this->_occurence = new Occurence($day, $month, $year, $season);
         $this->_image = $image;
         $this->_ongoing = $ongoing;
     }
-//we are instructed to write our own setters and getters, thus the above eight
-//data (attributes) will be logical extensions of their respective names. Here
-//impose some alphabetical order to aid in locating the methods (mutator).
-//Presentation of the methods will be ordered:
-//
-// getId()
-// getImage()
-// getInvestment()
-// getLocation()
-// getOccurance()
-// getOngoing()
-// getPriority()
-// getTitle()
+    //we are instructed to write our own setters and getters, thus the above eight
+    //data (attributes) will be logical extensions of their respective names. Here
+    //impose some alphabetical order to aid in locating the methods (mutator).
+    //Presentation of the methods will be ordered:
+    //
+    // getId()
+    // getImage()
+    // getInvestment()
+    // getLocation()
+    // getOccurence ()
+    // getOngoing()
+    // getPriority()
+    // getTitle()
     /**
      * returns the PRIMARY KEY identification number
     * @return int
@@ -67,24 +96,30 @@ class Milestone
     /**
     * returns a Investment object
     */
-
+    public function getInvestment()
+    {
+        return $this->_investment;
+    }
     /**
      * returns a Location object
     */
-
-    /**
-    * returns a Occrance object
-    */
-    public function getOccurance()
+    public function getLocation()
     {
-        return $this->occurence;
+        return $this->_location;
+    }
+    /**
+    * returns a Occrence object
+    */
+    public function getOccurence()
+    {
+        return $this->_occurence;
     }
     /**
      * returns whether the milestone if "ongoing", no set beginning & end
      */
     public function getOngoing()
     {
-        return $this->_investment;
+        return $this->_ongoing;
     }
     /**
      * returns the Priority on scale of 1...10
@@ -92,7 +127,7 @@ class Milestone
      */
     public function getPriority()
     {
-        return $this->_ongoing;
+        return $this->_priority;
     }
     /**
      * returns the title of the milestone
@@ -117,42 +152,13 @@ class Milestone
     {
         $this->_image = $image;
     }
-    /**
-     * set to an Investment object
-     * @param integer cost in US dollars
-     * @param int timeTravel in days traveling both ways to the SITE (for Duration)
-     * @param int $timeVisit in days ON SITE (for Duration)
-     */
-    public function setInvestment($cost, $timeTravel, $timeVisit)
-    {
-        // be care full about the order of instantiating
-        // Duration is a child of Investment, the "leaf" of the class(es)
 
-        $duration = new Duration($timeTravel, $timeVisit);
-        $duration->setTimeTravel($timeTravel);
-        $duration->setTimeVisit($timeVisit);
-        $investment = new Investment($cost, $timeTravel, $timeVisit);
-        $investment->setCost($cost);
-    }
-    /**
-     * returns a Location object
-     */
-
-    /**
-     * returns a Occrance object
-     */
-    public function setOccurance()
-    {
-        $occurence = new Occurence();
-        $this->_occurence = $occurence;
-    }
     /**
      * sets the milestone if "ongoing", no set beginning & end
      */
-    public function setOngoing()
+    public function setOngoing($ongoing)
     {
-        $investment = new Investment();
-        $this->_investment = $investment;
+        $this->_ongoing = $ongoing;
     }
     /**
      * sets the Priority on scale of 1...10
@@ -170,5 +176,3 @@ class Milestone
         $this->_title = $title;
     }
 }
-
-// getTitle()

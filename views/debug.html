@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- Bruce Turner, Professor Ostrander, Spring 2019 -->
+<!-- IT 328 Full Stack Web Development -->
+<!-- Final Project -->
+<!-- file: views/debug.html -->
+<!-- date: Thursday June 6 2019 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display Milestone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-sm  navbar-default">
+    <a class="navbar-brand" href="/328/Final_Project/view">View</a>
+    <a class="navbar-brand" href="/328/Final_Project/search">Search</a>
+    <a class="navbar-brand" href="/328/Final_Project/edit">Edit</a>
+    <a class="navbar-brand" href="/328/Final_Project/login">Login</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"><span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+<div class="container border mt-4">
+    <div class="row ml-2">  <!-- row 1, single column -->
+        <div class="col-sm-12">
+            <h1>Milestone Details: ID# {{ @SESSION['ms']->getId()}}</h1>
+        </div>
+    </div>  <!-- end of row 1, single column -->
+    <div class="row ml-2">
+        <div class="col-sm-6">
+            <div class="container border mt-4">
+                Title:  {{ @SESSION['ms']->getTitle() }}
+            </div>
+            <div class="container border mt-4">
+                Priority: {{ @SESSION['ms']->getPriority() }}
+            </div>
+            <div class="container border mt-4">
+                Ongoing Milestone:  {{ @SESSION['ms']->getOngoing() }}
+            </div>
+            <div class="container border mt-4">
+
+            </div>
+             <div class="container border mt-4">
+                <strong>Location:</strong>
+                <br>  POC Name: {{ @SESSION['ms']->getLocation()->getPOCName() }} <br>
+                Street Address: {{ @SESSION['ms']->getLocation()->getStreetAddress() }} <br>
+                City: {{ @SESSION['ms']->getLocation()->getCity() }} <br>
+                Province: {{ @SESSION['ms']->getLocation()->getProvince() }} <br>
+                Postal Code: {{ @SESSION['ms']->getLocation()->getPostalCode() }}
+            </div>
+            <div class="container border mt-4">
+                <strong>Investment:</strong>
+                <br>  Financial UD $: {{ @SESSION['ms']->getInvestment()->getCost() }} <br>
+                Travel Days (both ways): {{ @SESSION['ms']->getInvestment()->getTimeTravel() }} <br>
+                Expected Days Spent Location: {{ @SESSION['ms']->getInvestment()->getTimeVisit() }} <br>
+            </div>
+            <div class="container border mt-4">
+                <strong>Occurence:</strong>
+                <br>  Month-Day-Year Season: {{ @SESSION['ms']->getOccurence()->getMonth() }}-{{ @SESSION['ms']->getOccurence()->getDay() }}-{{ @SESSION['ms']->getOccurence()->getYear() }} {{ @SESSION['ms']->getOccurence()->getSeason() }}<br>
+
+            </div>
+
+        </div> <!-- end of column 1, row 2 -->
+        <div class="col-sm-6">
+                <img class="img-responsive rounded" src= "{{ @SESSION['ms']->getImage() }}" style="width:400px" alt="FILE NOT FOUND" > <br>
+        </div>   <!-- end of column 2, row 2 -->
+        <br>
+        <br>
+    </div> <!-- closes row 2 -->
+    <br><br>
+</div> <!-- close main container -->
+</body>
+</html>
