@@ -4,8 +4,8 @@
  * IT 328 Full Stack Web Development
  * Bucket app handling the "milestones" in the DB:
  * file: milestoneDB.php
- * date: Tuesday, June 4 2019
- * class Milestone
+ * date: Thursday, June 6 2019
+ * class MilestoneDB
  *
  * Conform to the required PEAR coding standards from the git go
  * " Apply PEAR Standards to your class files, including a class-level docblock
@@ -134,7 +134,7 @@ class MilestoneDB
         return $bucket;
     }
 
-    function insertMember($fname, $lname, $age, $gender, $phone, $email, $state,
+    function insertMilestone($fname, $lname, $age, $gender, $phone, $email, $state,
                           $seeking, $bio, $premium, $image)
     {
         global $dbM;
