@@ -3,7 +3,7 @@
  * IT 328 Full Stack Web Development
  * Final Project: Bucket of Milestones
  * file: index.php  is the default landing page, defines various routes
- * date: Friday, June 7 2019
+ * date: Saturday, June 8 2019
 */
 //3456789_123456789_123456789_123456789_123456789_123456789_123456789_1234567890
 // the above is 80 characters
@@ -137,28 +137,13 @@ $f3->route('GET|POST /add', function($f3)
             $_SESSION['postalCode'] = $_POST['postalCode'];
             //now fold in the classes...parse on OngoingMilestone checkbox, if we are in a  mode with
             //an "ordinary" Milestone then !ongoing will be true ONLY THIS TIME until submitted
-            //Fat-Free does NOT even waste storage for a "false" value
+            //Fat-Free does NOT waste storage for a "false" value
 
             //be careful here, if it is not set it doesnt exist!
-            if(!isset($_POST['ongoing']))
-            {
-                $_SESSION['ongoing'] = "0";
-                $ms = new Milestone($_SESSION['id'], $_SESSION['title'], $_SESSION['priority'], $_SESSION['pocName'],
-                    $_SESSION['streetAddress'], $_SESSION['city'], $_SESSION['province'],
-                    $_SESSION['postalCode'], $_SESSION['cost'], $_SESSION['timeTravel'], $_SESSION['timeVisit'],
-                    $_SESSION['day'], $_SESSION['month'], $_SESSION['year'], $_SESSION['season'],
-                    $_SESSION['image'], $_SESSION['ongoing']);
-            }
-            else
-            {
-                $ms = new OngoingMilestone($_SESSION['pocName'],
-                                           $_SESSION['phone']);
-                $_SESSION['ongoing'] = "1";
-            }
-            //store the milestone either way
+            if(!isset($_POST['ongoing'])) {$_SESSION['ongoing'] = "0"; $ongoing = 1;}
+            else {$_SESSION['ongoing'] = "1"; $ongoing = 0;}
 
-            $_SESSION['ms'] = $ms;
-
+            $f3->set('ongoing', $ongoing);
             //need more data regardless of milestone (ms) type
 
             $f3->reroute('/milestone-profile');

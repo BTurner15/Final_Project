@@ -3,12 +3,11 @@
  * IT 328 Full Stack Web Development
  * Final Project: with form validation & sticky forms
  * file: validation-functions.php
- * date: Friday, June 7 2019
+ * date: Saturday, June 8 2019
  * "
  * validPOCname() checks to see that a string is all alphabetic
  * validNumberRange() checks to see that an value is numeric and between 1 and 10
  * validPhone() checks to see that a phone number is valid
- * (you can decide what constitutes a “valid” phone number)
  * validEmail() checks to see that an email address is valid
  * validOutdoor() checks each selected outdoor interest against a list of valid options
  * validIndoor() checks each selected indoor interest against a list of valid options
@@ -79,11 +78,14 @@ function validInitialForm()
      *
      */
     function validStreet($streetAddress)
-    {
-        return ctype_alnum($streetAddress) AND ($streetAddress != "");
+    {   //use a regular expression
+        //credit to Stack Overflow https://stackoverflow.com/questions/44738735/php-validate-street-address-with-regular-expression
+        $strRegEx = '/^[a-z0-9 ,#-\'\/]{3,50}$/i';
+
+        return ($streetAddress != "") AND (preg_match($strRegEx, $streetAddress) === 1 );
     }
 
-    /* validate an phone number value input as a string
+    /* validate a phone number value input as a string
      * @param String phone
      * @return boolean
      *
@@ -94,7 +96,7 @@ function validInitialForm()
     }
 
 
-    function validProfileForm()
+    function validSecondForm()
     {
         global $f3;
         global $_SESSION;

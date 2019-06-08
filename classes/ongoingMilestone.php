@@ -23,7 +23,6 @@
 
 class OngoingMilestone extends Milestone
 {
-    private $_percentCommit;    //of free time, what is required
     private $_details;
     /*  private methods and properties are NOT inherited. */
     /* protected methods & properties ARE inherited */
@@ -45,15 +44,6 @@ class OngoingMilestone extends Milestone
         $this->_indoor = $indoor;
         $this->_outdoor = $outdoor;
     }
-//we are instructed to write our own setters and getters, thus the above four
-//data (attributes) will be logical extensions of their respective names. Here will
-//impose some alphabetical order to aid in locating the methods (mutator)
-//thus presentation of the methods will be ordered:
-//
-// getIndoor()
-// getOutdoor()
-// setIndoor()
-// setOutdoor()
     /**
      * retrieve the list of indoor interests selected by the PremiumMember
      * @return string pointer to something like "sewing reading..."
