@@ -17,7 +17,7 @@
 /* Validate the POC information form
  * @return boolean
  */
-function validInitialForm()
+function validPOCform()
 {
     global $f3;
     global $_SESSION;
@@ -27,15 +27,17 @@ function validInitialForm()
 
         $isValid = false;
         $f3->set("errors['pocName']", "Please enter an alphabetic POC name");
+        //echo 'fails name check';
     }
     else{
+
         $_SESSION['pocName'] = $_POST['pocName'];
     }
 
     if (!validPhoneNumber($f3->get('phone'))) {
         //require a number totaling 10 digits
         $isValid = false;
-        $f3->set("errors['gender']", "Please select a gender");
+        $f3->set("errors['phone']", "Please enter a phone number");
     }
     else{
         $_SESSION['phone'] = $_POST['phone'];
@@ -44,7 +46,7 @@ function validInitialForm()
     if (!validEmail($f3->get('email'))) {
 
         $isValid = false;
-        $f3->set("errors['email']", "Please enter an correct email address");
+        $f3->set("errors['email']", "Please enter a valid email address");
     }
     else{
         $_SESSION['email'] = $_POST['email'];
@@ -58,7 +60,6 @@ function validInitialForm()
     else{
         $_SESSION['streetAddress'] = $_POST['streetAddress'];
     }
-
 
     return $isValid;
 }
@@ -136,36 +137,14 @@ function validInitialForm()
         }
     }
 
-    function validSeekSex($seekSex)
-    {
-        return ctype_alpha($seekSex) AND ($seekSex != "");
-    }
-
-    function validState($resState)
-    {
-        global $f3;
-        // insist on either the 2 letter abbreviation, or full state spelling
-        if (in_array($resState,$f3->get('states')))
-        {
-            return true;
-        }
-        else if (in_array($resState,$f3->get('states_ABBR')))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
     function validInterestsForm()
     {
         return true;
     }
-    function validOutdoor($interest)
+    function validPros($pros)
     {
         global $f3;
-        if(!in_array($interest, $f3->get('outdoorInterests')))
+        if(!in_array($pros, $f3->get('positives')))
         {
             //spoof attempt. skip it
             return false;
@@ -175,10 +154,10 @@ function validInitialForm()
         }
     }
 
-    function validIndoor($interest)
+    function validCons($cons)
     {
         global $f3;
-        if (!in_array($interest, $f3->get('indoorInterests'))) {
+        if (!in_array($cons, $f3->get('negatives'))) {
             //spoof attempt. skip it
             return false;
         } else {

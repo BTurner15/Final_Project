@@ -3,7 +3,7 @@
 <!-- IT 328 Full Stack Web Development -->
 <!-- Final Project -->
 <!-- file: views/all-milestones.html -->
-<!-- date: June 4 2019 -->
+<!-- date: Saturday June 8 2019 -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,9 +28,11 @@
         <th scope="col">ID</th>
         <th scope="col">Title</th>
         <th scope="col">Priority</th>
+        <!--
         <th scope="col">Month</th>
         <th scope="col">Day</th>
         <th scope="col">Year</th>
+        -->
         <th scope="col">Ongoing?</th>
     </tr>
     </thead>
@@ -43,9 +45,11 @@
                     {{ @milestone['id'] }}</a></td>
                     <td>{{ @milestone['title'] }}</td>
                     <td>{{ @milestone['priority'] }}</td>
+                    <!--
                     <td>{{ @milestone['month'] }}</td>
                     <td>{{ @milestone['day'] }}</td>
                     <td>{{ @milestone['year'] }}</td>
+                    -->
                     <td>
                     <input type="checkbox" disabled
                     <check if="{{ @milestone['ongoing']==1}}">

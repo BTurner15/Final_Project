@@ -34,18 +34,18 @@
                <div class="col-sm-8">
                     <strong>Point of Contact Name</strong><br>
                     <label class="form-control-label" >
-                         <input id="pocName" required class="form-control" type="text" name="pocName" value="{{ @SESSION['pocName'] }}">
+                         <input id="pocName" class="form-control" type="text" name="pocName" value="{{ @SESSION['pocName'] }}">
                          <check if="{{ @errors['pocName'] }}">
                               <span class="err">{{ @errors['pocName'] }}</span>
                          </check>
                     </label><br>
                     <strong>Phone Number</strong><br>
                     <label>
-                         <input id="phone" required class="form-control" type="tel" name="phone" value="{{ @SESSION['phone'] }}"><br>
+                         <input id="phone" class="form-control" type="tel" name="phone" value="{{ @SESSION['phone'] }}"><br>
                     </label><br>
                     <strong>Email</strong><br>
                     <label>
-                         <input id="email" required class="form-control" type="email" name="email" value="{{ @SESSION['email'] }}">
+                         <input id="email" class="form-control" type="email" name="email" value="{{ @SESSION['email'] }}">
                     </label><br>
                     <div class="form-group">
                          <label class="font-weight-bold" for="ongoing">Ongoing Milestone:</label>
@@ -59,28 +59,31 @@
                <div class="col-sm-4">
                      <strong>Street Address</strong><br>
                      <label class="form-control-label" >
-                         <input id="StreetAddress" required class="form-control" type="text" name="streetAddress" value="{{ @SESSION['streetAddress'] }}">
+                         <input id="StreetAddress" class="form-control" type="text" name="streetAddress" value="{{ @SESSION['streetAddress'] }}">
                           <check if="{{ @errors['streetAddress'] }}">
                              <span class="err">{{ @errors['streetAddress'] }}</span>
                           </check>
                      </label><br>
                      <strong>City</strong><br>
                      <label class="form-control-label" >
-                         <input id="city" required class="form-control" type="text" name="city" value="{{ @SESSION['city'] }}">
+                         <input id="city" class="form-control" type="text" name="city" value="{{ @SESSION['city'] }}">
                          <check if="{{ @errors['city'] }}">
                               <span class="err">{{ @errors['city'] }}</span>
                          </check>
                      </label><br>
                      <strong>Province</strong><br>
                      <label class="form-control-label" >
-                         <input id="province" required class="form-control" type="text" name="province" value="{{ @SESSION['province'] }}">
+                         <input id="province" class="form-control" type="text" name="province" value="{{ @SESSION['province'] }}">
                          <check if="{{ @errors['province'] }}">
                              <span class="err">{{ @errors['province'] }}</span>
                          </check>
                      </label><br>
                      <strong>Postal Code</strong><br>
                      <label>
-                         <input id="postalCode" required class="form-control" type="text" name="postalCode" value="{{ @SESSION['postalCode'] }}"><br>
+                         <input id="postalCode" class="form-control" type="text" name="postalCode" value="{{ @SESSION['postalCode'] }}"><br>
+                         <check if="{{ @errors['postalCode'] }}">
+                             <span class="err">{{ @errors['postalCode'] }}</span>
+                         </check>
                      </label><br>
                </div>
           </div> <!-- end row#1 -->

@@ -27,14 +27,18 @@ set_exception_handler(function($obj) use($f3){
 set_error_handler(function($code,$text) use($f3)
 {
     if (error_reporting())
-    {
+    {advent
         $f3->error(500,$text);
     }
 });
 */
 $f3->set('DEBUG', 3);
 
-$f3->set('searchCriteria', array('priority', 'cost', 'temporal'));
+$f3->set('positives', array('adventurous', 'quirky', 'challenging', 'always wanted to',
+                       ' expand horizons', 'told I could not'));
+
+$f3->set('negatives', array('physically demanding', 'costly', 'temporal concerns', 'vaccinations current',
+    'passport', 'could be fatal', 'illegal'));
 
 //Define a default route
 $f3->route('GET /', function(){
@@ -58,7 +62,8 @@ $f3->route('GET|POST /debug', function() {
     $_SESSION['ms'] = $ms;
 
     $view = new Template();
-    echo $view->render('views/debug.html');
+    echo $view->render('views/required-data.html');
+    //echo $view->render('views/debug.html');
 });
 
 //Define a route to display the entire bucket
@@ -83,20 +88,34 @@ $f3->route('GET /displayOne/@milestone_id', function($f3, $params)
         $milestone_id = $params['milestone_id'];
         $row = $dbM->getMilestone($milestone_id);
 
-        $ms = new Milestone($row['id'], $row['title'], $row['priority'], $row['pocName'],
-                            $row['streetAddress'], $row['city'], $row['province'],
-                            $row['postalCode'], $row['cost'], $row['timeTravel'], $row['timeVisit'],
-                            $row['day'], $row['month'], $row['year'], $row['season'],
-                            $row['image'], $row['ongoing']);
+        if($row['ongoing']==0) {
+            $ms = new Milestone($row['id'], $row['title'], $row['priority'], $row['pocName'],
+                $row['streetAddress'], $row['city'], $row['province'],
+                $row['postalCode'], $row['cost'], $row['timeTravel'], $row['timeVisit'],
+                $row['day'], $row['month'], $row['year'], $row['season'],
+                $row['image'], $row['ongoing']);
 
-        $_SESSION['ms'] = $ms;
+            $_SESSION['ms'] = $ms;
+            $view = new Template();
+            echo $view->render('views/milestone-summary.html');
+        }
+        else {
+            $ms = new OngoingMilestone($row['id'], $row['title'], $row['priority'], $row['pocName'],
+                $row['streetAddress'], $row['city'], $row['province'],
+                $row['postalCode'], $row['cost'], $row['timeTravel'], $row['timeVisit'],
+                $row['day'], $row['month'], $row['year'], $row['season'],
+                $row['image'], $row['ongoing']);
+            $_SESSION['ms'] = $ms;
 
-        $view = new Template();
-        echo $view->render('views/milestone-details.html');
-
+            $view = new Template();
+            echo $view->render('views/ongoingMS-summary.html');
+        }
     });
-//define an add milestone route
-$f3->route('GET|POST /add', function($f3)
+
+//define a route to display & process the POC form
+//stay in this route until either rerouted Home vis nav-bar, or
+// continue to next milestone form if an ongoing milestone
+$f3->route('GET|POST /pocForm', function($f3)
 {
     global $dbM;
 
@@ -125,8 +144,8 @@ $f3->route('GET|POST /add', function($f3)
         $f3->set('province', $province);
         $f3->set('postalCode', $postalCode);
 
-        if (validInitialForm()) {
-
+        if (validPOCform()) {
+echo 'HERE AGAIN';
             //Write data to Session
             $_SESSION['pocName'] = $_POST['pocName'];
             $_SESSION['phone'] = $_POST['phone'];
@@ -145,8 +164,12 @@ $f3->route('GET|POST /add', function($f3)
 
             $f3->set('ongoing', $ongoing);
             //need more data regardless of milestone (ms) type
+            if($_SESSION['ongoing']== 1)
+                $f3->reroute('/ongoing-data');
+            else {
+                //display the new milestone
 
-            $f3->reroute('/milestone-profile');
+            }
         }
     }
     $view = new Template();
@@ -157,5 +180,25 @@ $f3->route('GET|POST /milestone-profile', function($f3) {
     global $dbM;
 
 });
+//Define a route for ongoing milestones. We will only get here via reroute from profile.html
+$f3->route('GET|POST /interests', function($f3) {
+
+    $_SESSION['bio'] = ' ';
+    if(!empty($_POST)) {
+        //Display interests, until REROUTED to summary
+        //form valid?
+        if (validInterestsForm()) {
+            //Write data to Session "member" object
+            $_SESSION['member']->setIndoor($_POST['indoor']);
+            $_SESSION['member']->setOutdoor($_POST['outdoor']);
+
+            $f3->reroute('/summary');
+        }
+    }
+    $view = new Template();
+    echo $view->render('views/interests.html');
+
+});
+
 //Run fat free
 $f3->run();
