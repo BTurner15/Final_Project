@@ -54,6 +54,8 @@ $f3->route('GET /', function(){
 //Define a debug route
 $f3->route('GET|POST /debug', function() {
     //our debug route
+    global $_SESSION;
+    /*
     //start with a milestone object. test getters & setters
     $ms = new Milestone( '1', 'Meet Grandson', '9', 'Sara', '715 Main Street', 'Philadelphia', 'PA', '19086',
         '1125', '2', '7', '1', '9', '2019', 'summer', 'images/MT Pose.jpg', 0
@@ -66,6 +68,64 @@ $f3->route('GET|POST /debug', function() {
     if($isValid == 1)echo'SET';
     //$view = new Template();
     //echo $view->render('views/debug.html');
+    */
+    $title = $_SESSION['ms']->getTitle();
+    echo 'title: '.$title.'<br>';
+
+    $_SESSION['ms']->setPriority(99);
+
+    $priority = $_SESSION['ms']->getPriority();
+    echo 'priority: '.$priority.'<br>';
+
+    $pocName = $_SESSION['ms']->getLocation()->getPOCName();
+    echo 'pocName: '.$pocName.'<br>';
+
+    $streetAddress = $_SESSION['ms']->getLocation()->getStreetAddress();
+    echo 'streetAddress: '.$streetAddress.'<br>';
+
+    $city = $_SESSION['ms']->getLocation()->getCity();
+    echo 'city: '.$city.'<br>';
+
+    $province = $_SESSION['ms']->getLocation()->getProvince();
+    echo 'province: '.$province.'<br>';
+
+    $postalCode= $_SESSION['ms']->getLocation()->getPostalCode();
+    echo 'postalCode: '.$postalCode.'<br>';
+
+    $_SESSION['ms']->getInvestmant->setCost(2299);
+    $cost= $_SESSION['ms']->getInvestment()->getCost();
+    echo ' cost: '.$cost.'<br>';
+    $_SESSION['ms']->getInvestmant->setTimeTravel(4);
+    $timeTravel = $_SESSION['ms']->getInvestment()->getTimeTravel();
+    echo ' timeTravel: '.$timeTravel.'<br>';
+
+    $_SESSION['ms']->getInvestmant->setTimeVisit(11);
+    $timeVisit = $_SESSION['ms']->getInvestment()->getTimeVisit();
+    echo ' timeVisit: '.$timeVisit.'<br>';
+
+    $_SESSION['ms']->getOccurence()->setDay(31);
+    $day = $_SESSION['ms']->getOccurance()->getDay();
+    echo ' day: '.$day.'<br>';
+
+    $_SESSION['ms']->getOccurence()->setMonth(12);
+    $month = $_SESSION['ms']->getOccurance()->getMonth();
+    echo ' month: '.$month.'<br>';
+
+    $_SESSION['ms']->getOccurence()->setYear(2050);
+
+    $year = $_SESSION['ms']->getOccurance()->getYear();
+    echo ' year: '.$year.'<br>';
+
+    $_SESSION['ms']->getOccurence()->setSeason('Foo');
+    $season = $_SESSION['ms']->getOccuranc()->getSeason();
+    echo ' season: '.$season.'<br>';
+
+    $image = $_SESSION['ms']->getImage();
+    echo ' image: '.$image.'<br>';
+
+    $ongoing = $_SESSION['ms']->getOngoing();
+    echo ' ongoing: '.$ongoing.'<br>';
+
 });
 
 //Define a route to display the entire bucket
@@ -180,6 +240,7 @@ $f3->route('GET|POST /pocForm', function($f3)
             $f3->set('ongoing', $ongoing);
             //get the next ID
             $nextMS_id = $dbM->lastInsertId() + 1;
+            echo $nextMS_id;
 
             //we only need more data if this is an ongoing milestone, otherwise add & display
             if($_SESSION['ongoing'] == 1)
@@ -193,11 +254,18 @@ $f3->route('GET|POST /pocForm', function($f3)
                     $_SESSION['postalCode'], $_SESSION['cost'], $_SESSION['timeTravel'], $_SESSION['timeVisit'],
                     $_SESSION['day'], $_SESSION['month'], $_SESSION['year'], $_SESSION['season'],
                     $_SESSION['image'], $_SESSION['ongoing']);
+
+
+
                 $_SESSION['ms'] = $ms;
                 $f3->set('ms', $ms);
+                $f3->reroute('/debug');
+                //print_r($_SESSION);
+                /*
                 $dbM->insertMS($nextMS_id);
 
                 $f3->reroute('/displayOne/@nextMS_id');
+                */
             }
         }
     }

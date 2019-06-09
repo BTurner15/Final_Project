@@ -41,13 +41,13 @@ class Milestone
      * @param $city (for Location constructor)
      * @param $province (for Location constructor)
      * @param $postalCode (for Location constructor)
+     * @param $cost (for Investment constructor, US dollars estimate)
+     * @param $timeTravel (for Investment constructor, day spent both ways)
+     * @param $timeVisit (for Investment constructor, total days anticipated
      * @param $day (for Occurence constructor 1..31)
      * @param $month (for Occurence constructor 1...12)
      * @param $year (for Occurence constructor YYYY)
      * @param $season ('Fall', 'Winter', 'Spring', 'Summer', or 'All year')
-     * @param $cost (for Investment constructor, US dollars estimate)
-     * @param $timeTravel (for Investment constructor, day spent both ways)
-     * @param $timeVisit (for Investment constructor, total days anticipated
      * @param $image
      * @param $ongoing
      */

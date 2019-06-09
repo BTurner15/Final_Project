@@ -146,27 +146,29 @@ class MilestoneDB
          *                    '19086', '1125', '2', '7', '1', '9', '2019', 'summer', 'mt.jpeg', 0);
          */
         global $dbM;
-        global $f3;
+        global $_SESSION;
 
         $dbM = $this->connect();
-        // 0. get data from hive. If I ever wanted to test my getters(), how about now!
+        // 0. get data from $_SESSION[]. If I ever wanted to test my getters(), how about now!
         $title = $_SESSION['ms']->getTitle();
+        echo $title;
         $priority = $_SESSION['ms']->getPriority();
-        $pocName = $_SESSION['ms']->getpocName();
-        $streetAddress = $_SESSION['ms']->getStreetAddress();
-        $city = $_SESSION['ms']->getCity();
-        $province = $_SESSION['ms']->getProvince();
-        $postalCode= $_SESSION['ms']->getPostalCode();
-        $cost= $_SESSION['ms']->getCost();
-        $timeTravel = $_SESSION['ms']->getTimeTravel();
-        $timeVisit = $_SESSION['ms']->getTimeVisit();
-        $day = $_SESSION['ms']->getDay();
-        $month = $_SESSION['ms']->getMonth();
-        $year = $_SESSION['ms']->getYear();
-        $season = $_SESSION['ms']->getSeason();
+        $pocName = $_SESSION['ms']->getLocation()->getPOCName();
+        $streetAddress = $_SESSION['ms']->getLocation()->getStreetAddress();
+        $city = $_SESSION['ms']->getLocation()->getCity();
+        $province = $_SESSION['ms']->getLocation()->getProvince();
+        $postalCode= $_SESSION['ms']->getLocation()->getPostalCode();
+        $cost= $_SESSION['ms']->getInvestment()->getCost();
+        $timeTravel = $_SESSION['ms']->getInvestment()->getTimeTravel();
+        $timeVisit = $_SESSION['ms']->getInvestment()->getTimeVisit();
+        $day = $_SESSION['ms']->getOccurance()->getDay();
+        $month = $_SESSION['ms']->getOccurance()->getMonth();
+        $year = $_SESSION['ms']->getOccurance()->getYear();
+        $season = $_SESSION['ms']->getOccurance()->getSeason();
         $image = $_SESSION['ms']->getImage();
         $ongoing = $_SESSION['ms']->getOngoing();
-
+print_r($_SESSION['ms']);
+/*
         // 1. define the query
 
         $sql = "INSERT INTO bucket(`id`, `title`, `priority`, `pocName`, `streetAddress`, `city`, `province`, `postalCode`, `cost`, `timeTravel`, `timeVisit`,`day`, `month`, `year`, `season`, `image`, `ongoing`)
@@ -198,7 +200,7 @@ class MilestoneDB
 
         // 5. return the result
         return $result;
-
+*/
     }
 
     function getMilestone($id)
