@@ -134,38 +134,70 @@ class MilestoneDB
         return $bucket;
     }
 
-    function insertMilestone($fname, $lname, $age, $gender, $phone, $email, $state,
-                          $seeking, $bio, $premium, $image)
+    function insertMS($id)
     {
+        //insert a new milestone
+        /*
+         *
+         * INSERT INTO bucket(id, title, priority, pocName, streetAddress, city, province,
+         *                    postalCode, cost, timeTravel, timeVisit, day, month, year,
+         *                    season, image, ongoing)
+         *             VALUES('1', 'Meet Grandson', '9', 'Sara', '715 Main Street', 'Philadelphia', 'PA',
+         *                    '19086', '1125', '2', '7', '1', '9', '2019', 'summer', 'mt.jpeg', 0);
+         */
         global $dbM;
+        global $f3;
 
         $dbM = $this->connect();
+        // 0. get data from hive. If I ever wanted to test my getters(), how about now!
+        $title = $_SESSION['ms']->getTitle();
+        $priority = $_SESSION['ms']->getPriority();
+        $pocName = $_SESSION['ms']->getpocName();
+        $streetAddress = $_SESSION['ms']->getStreetAddress();
+        $city = $_SESSION['ms']->getCity();
+        $province = $_SESSION['ms']->getProvince();
+        $postalCode= $_SESSION['ms']->getPostalCode();
+        $cost= $_SESSION['ms']->getCost();
+        $timeTravel = $_SESSION['ms']->getTimeTravel();
+        $timeVisit = $_SESSION['ms']->getTimeVisit();
+        $day = $_SESSION['ms']->getDay();
+        $month = $_SESSION['ms']->getMonth();
+        $year = $_SESSION['ms']->getYear();
+        $season = $_SESSION['ms']->getSeason();
+        $image = $_SESSION['ms']->getImage();
+        $ongoing = $_SESSION['ms']->getOngoing();
+
         // 1. define the query
 
-        $sql = "INSERT INTO bucket(`fname`, `lname`, `age`, `gender`, `phone`, `email`, `state`, `seeking`, `bio`, `premium`, `image`)
-            VALUES (:fname, :lname, :age, :gender, :phone, :email, :state, :seeking, :bio, :premium, :image)";
+        $sql = "INSERT INTO bucket(`id`, `title`, `priority`, `pocName`, `streetAddress`, `city`, `province`, `postalCode`, `cost`, `timeTravel`, `timeVisit`,`day`, `month`, `year`, `season`, `image`, `ongoing`)
+            VALUES (:id, :title, :priority, :pocName, :streetAddress, :city, :province, :postalCode, :cost, :timeTravel, :timeVisit, :day, :month, :year, :season, :image, :ongoing)";
 
         // 2. prepare the statement
         $statement = $dbM->prepare($sql);
 
         //3. bind parameters
-        $statement->bindParam(':fname', $fname, PDO::PARAM_STR);
-        $statement->bindParam(':lname', $lname, PDO::PARAM_STR);
-        $statement->bindParam(':age', $age, PDO::PARAM_INT);
-        $statement->bindParam(':gender', $gender, PDO::PARAM_STR);
-        $statement->bindParam(':phone', $phone, PDO::PARAM_STR);
-        $statement->bindParam(':email', $email, PDO::PARAM_STR);
-        $statement->bindParam(':state', $state, PDO::PARAM_STR);
-        $statement->bindParam(':seeking', $seeking, PDO::PARAM_STR);
-        $statement->bindParam(':bio', $bio, PDO::PARAM_STR);
-        $statement->bindParam(':premium', $premium, PDO::PARAM_INT);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        $statement->bindParam(':title', $title, PDO::PARAM_STR);
+        $statement->bindParam(':priority', $priority, PDO::PARAM_INT);
+        $statement->bindParam(':pocName', $age, PDO::PARAM_STR);
+        $statement->bindParam(':streetAddress', $gender, PDO::PARAM_STR);
+        $statement->bindParam(':city', $phone, PDO::PARAM_STR);
+        $statement->bindParam(':province', $email, PDO::PARAM_STR);
+        $statement->bindParam(':postalCode', $state, PDO::PARAM_INT);
+        $statement->bindParam(':cost', $seeking, PDO::PARAM_INT);
+        $statement->bindParam(':timeTravel', $bio, PDO::PARAM_INT);
+        $statement->bindParam(':timeVisit', $premium, PDO::PARAM_INT);
+        $statement->bindParam(':day', $day, PDO::PARAM_INT);
+        $statement->bindParam(':month', $month, PDO::PARAM_INT);
+        $statement->bindParam(':year', $year, PDO::PARAM_INT);
+        $statement->bindParam(':season', $season, PDO::PARAM_STR);
         $statement->bindParam(':image', $image, PDO::PARAM_STR);
-
+        $statement->bindParam(':ongoing', $ongoing, PDO::PARAM_INT);
         // 4. execute the statement
-        $success = $statement->execute();
+        $result = $statement->execute();
 
         // 5. return the result
-        return $success;
+        return $result;
 
     }
 

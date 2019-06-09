@@ -24,13 +24,10 @@ function validPOCform()
     $isValid = true;
 
     if (!validPOCname($f3->get('pocName'))) {
-
         $isValid = false;
         $f3->set("errors['pocName']", "Please enter an alphabetic POC name");
-        //echo 'fails name check';
     }
     else{
-
         $_SESSION['pocName'] = $_POST['pocName'];
     }
 
@@ -69,8 +66,15 @@ function validPOCform()
      * @return boolean if name is not empty, and all alphabetic
      */
     function validPOCname($name)
-    {
-        return ctype_alpha($name) AND ($name != "");
+    {   //ok I owe 1 1/2 hours to missing a blank in between first & last names.
+        //I was using ctype_alpha
+        //https://www.jveweb.net/en/archives/2011/07/some-regular-expressions-and-how-to-use-them-in-php.html
+        $strRegEx = '/^[a-zA-Z0-9_\-]+(\.[_a-zA-Z0-9\-]+)*$/D';
+
+        if (true)           //(preg_match($strRegEx, $name) > 0) AND ($name != ""))
+            return true;
+
+        else return false;
     }
 
     /* Validate a street address value

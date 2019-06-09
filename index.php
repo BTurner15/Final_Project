@@ -60,9 +60,11 @@ $f3->route('GET|POST /debug', function() {
     );
 
     $_SESSION['ms'] = $ms;
-
-    $view = new Template();
-    echo $view->render('views/required-data.html');
+    $name = 'Summer Turner';
+    $isValid = ctype_alpha($name);
+    if($isValid == 0)echo'NOT SET';
+    if($isValid == 1)echo'SET';
+    //$view = new Template();
     //echo $view->render('views/debug.html');
 });
 
@@ -127,6 +129,7 @@ $f3->route('GET|POST /pocForm', function($f3)
     // point-of-contact (POC) section of information
     if(!empty($_POST)) {
         //Get data from form
+        $title = $_POST['title'];
         $pocName = $_POST['pocName'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
@@ -134,8 +137,12 @@ $f3->route('GET|POST /pocForm', function($f3)
         $city = $_POST['city'];
         $province = $_POST['province'];
         $postalCode = $_POST['postalCode'];
-
+        $image = $_POST['image'];
+        //Ok this one bit me before. If the Ongoing Milestone was NOT set if the form,
+        //then $_POST['ongoing'] does not exist
+        $_SESSION['image'] = "https://bturner.greenriverdev.com/328/Final_Project/bucket.jpg";
         //Add data to hive
+        $f3->set('title', $title);
         $f3->set('pocName', $pocName);
         $f3->set('phone', $phone);
         $f3->set('email', $email);
@@ -143,10 +150,11 @@ $f3->route('GET|POST /pocForm', function($f3)
         $f3->set('city', $city);
         $f3->set('province', $province);
         $f3->set('postalCode', $postalCode);
-
+        $f3->set('image', $image);
         if (validPOCform()) {
-echo 'HERE AGAIN';
+
             //Write data to Session
+            $_SESSION['title'] = $_POST['title'];
             $_SESSION['pocName'] = $_POST['pocName'];
             $_SESSION['phone'] = $_POST['phone'];
             $_SESSION['email'] = $_POST['email'];
@@ -154,21 +162,42 @@ echo 'HERE AGAIN';
             $_SESSION['city'] = $_POST['city'];
             $_SESSION['province'] = $_POST['province'];
             $_SESSION['postalCode'] = $_POST['postalCode'];
+            $_SESSION['image'] = $_POST['image'];
             //now fold in the classes...parse on OngoingMilestone checkbox, if we are in a  mode with
             //an "ordinary" Milestone then !ongoing will be true ONLY THIS TIME until submitted
             //Fat-Free does NOT waste storage for a "false" value
 
             //be careful here, if it is not set it doesnt exist!
-            if(!isset($_POST['ongoing'])) {$_SESSION['ongoing'] = "0"; $ongoing = 1;}
-            else {$_SESSION['ongoing'] = "1"; $ongoing = 0;}
-
-            $f3->set('ongoing', $ongoing);
-            //need more data regardless of milestone (ms) type
-            if($_SESSION['ongoing']== 1)
-                $f3->reroute('/ongoing-data');
+            if(!isset($_POST['ongoing']))
+            {
+                $_SESSION['ongoing'] = "0";
+                $ongoing = 0;
+            }
             else {
-                //display the new milestone
+                $_SESSION['ongoing'] = "1";
+                $ongoing = 1;
+            }
+            $f3->set('ongoing', $ongoing);
+            //get the next ID
+            $nextMS_id = $dbM->lastInsertId() + 1;
 
+            //we only need more data if this is an ongoing milestone, otherwise add & display
+            if($_SESSION['ongoing'] == 1)
+                //need more information
+                $f3->reroute('/ongoingMS-summary');
+            else {
+
+                //instantiate a new Milestone
+                $ms = new Milestone($nextMS_id, $_SESSION['title'], $_SESSION['priority'], $_SESSION['pocName'],
+                    $_SESSION['streetAddress'], $_SESSION['city'], $_SESSION['province'],
+                    $_SESSION['postalCode'], $_SESSION['cost'], $_SESSION['timeTravel'], $_SESSION['timeVisit'],
+                    $_SESSION['day'], $_SESSION['month'], $_SESSION['year'], $_SESSION['season'],
+                    $_SESSION['image'], $_SESSION['ongoing']);
+                $_SESSION['ms'] = $ms;
+                $f3->set('ms', $ms);
+                $dbM->insertMS($nextMS_id);
+
+                $f3->reroute('/displayOne/@nextMS_id');
             }
         }
     }

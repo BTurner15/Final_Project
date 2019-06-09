@@ -4,7 +4,7 @@
  * IT 328 Full Stack Web Development
  * Final Project Assignment:
  * file: ongoingMilestone.php
- * date: Friday, June 7 2019
+ * date: Saturday, June 8 2019
  * class OngoingMilestone
  *
  * Here I want to conform to the required PEAR coding standards from the git go
@@ -31,52 +31,55 @@ class OngoingMilestone extends Milestone
      * then has additional fields (variables) the two arrays of selected interests (indoor[] & outdoor[])
      * Thus there is an embedded invoking of the Member class
      *
-     * @param $_indoor
-     * @param $_outdoor
+     * @param $_pros
+     * @param $_cons
      */
-    public function __construct($fname, $lname, $age, $gender, $phone,
-                                $email = "", $state = "", $seeking = "", $bio = "",
-                                $indoor = "", $outdoor = "")
+    public function __construct($id, $title, $priority, $POCName, $streetAddress, $city,
+                                $province, $postalCode, $cost, $timeTravel, $timeVisit, $day,
+                                $month, $year, $season, $image, $ongoing,
+                                $pros = "", $cons = "")
     {
         //set parent constructor values
-        parent::__construct($fname, $lname, $age, $gender, $phone, $email, $state, $seeking, $bio);
+        parent::__construct($id, $title, $priority, $POCName, $streetAddress, $city,
+                            $province, $postalCode, $cost, $timeTravel, $timeVisit, $day,
+                            $month, $year, $season, $image, $ongoing);
 
-        $this->_indoor = $indoor;
-        $this->_outdoor = $outdoor;
+        $this->_pros = $pros;
+        $this->_cons = $cons;
     }
     /**
-     * retrieve the list of indoor interests selected by the PremiumMember
-     * @return string pointer to something like "sewing reading..."
+     * retrieve the list of positive attributes selected for this ongoing milestone
+     * @return string pointer to something like "challenging..."
      */
-    public function getIndoor()
+    public function getPros()
     {
-        return $this->_indoor;
-    }
-
-    /**
-     * retrieve the list of outdoor interests selected by the PremiumMember
-     * @return string pointer to something like "skydiving archery..."
-     */
-    public function getOutdoor()
-    {
-        return $this->_outdoor;
+        return $this->_pros;
     }
 
     /**
-     * store the list of indoor interests selected by the PremiumMember
-     * @param string $indoor
+     * retrieve the list of concerns selected for this ongoing milestone
+     * @return string pointer to something like "cost"
      */
-    public function setIndoor($indoor)
+    public function getCons()
     {
-        $this->_indoor = $indoor;
+        return $this->_cons;
     }
 
     /**
-     * store the list of outdoor interests selected by the PremiumMember
-     * @param string $outdoor
+     * store the list of positive attributes selected for this ongoing milestone
+     * @param string $pros
      */
-    public function setOutdoor($outdoor)
+    public function setPros($pros)
     {
-        $this->_outdoor = $outdoor;
+        $this->_pros = $pros;
+    }
+
+    /**
+     * store the list of "concerns" selected for this ongoing milestone
+     * @param string $cons
+     */
+    public function setCons($cons)
+    {
+        $this->_cons = $cons;
     }
 }
