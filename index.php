@@ -3,7 +3,7 @@
  * IT 328 Full Stack Web Development
  * Final Project: Bucket of Milestones
  * file: index.php  is the default landing page, defines various routes
- * date: Saturday, June 8 2019
+ * date: Sunday,June 9 2019
 */
 //3456789_123456789_123456789_123456789_123456789_123456789_123456789_1234567890
 // the above is 80 characters
@@ -72,8 +72,6 @@ $f3->route('GET|POST /debug', function() {
     $title = $_SESSION['ms']->getTitle();
     echo 'title: '.$title.'<br>';
 
-    $_SESSION['ms']->setPriority(99);
-
     $priority = $_SESSION['ms']->getPriority();
     echo 'priority: '.$priority.'<br>';
 
@@ -92,33 +90,23 @@ $f3->route('GET|POST /debug', function() {
     $postalCode= $_SESSION['ms']->getLocation()->getPostalCode();
     echo 'postalCode: '.$postalCode.'<br>';
 
-    $_SESSION['ms']->getInvestmant->setCost(2299);
     $cost= $_SESSION['ms']->getInvestment()->getCost();
     echo ' cost: '.$cost.'<br>';
-    $_SESSION['ms']->getInvestmant->setTimeTravel(4);
+
     $timeTravel = $_SESSION['ms']->getInvestment()->getTimeTravel();
     echo ' timeTravel: '.$timeTravel.'<br>';
 
-    $_SESSION['ms']->getInvestmant->setTimeVisit(11);
     $timeVisit = $_SESSION['ms']->getInvestment()->getTimeVisit();
     echo ' timeVisit: '.$timeVisit.'<br>';
 
-    $_SESSION['ms']->getOccurence()->setDay(31);
-    $day = $_SESSION['ms']->getOccurance()->getDay();
+    $day = $_SESSION['ms']->getOccurence()->getDay();
     echo ' day: '.$day.'<br>';
 
-    $_SESSION['ms']->getOccurence()->setMonth(12);
-    $month = $_SESSION['ms']->getOccurance()->getMonth();
+    $month = $_SESSION['ms']->getOccurence()->getMonth();
     echo ' month: '.$month.'<br>';
 
-    $_SESSION['ms']->getOccurence()->setYear(2050);
-
-    $year = $_SESSION['ms']->getOccurance()->getYear();
+    $year = $_SESSION['ms']->getOccurence()->getYear();
     echo ' year: '.$year.'<br>';
-
-    $_SESSION['ms']->getOccurence()->setSeason('Foo');
-    $season = $_SESSION['ms']->getOccuranc()->getSeason();
-    echo ' season: '.$season.'<br>';
 
     $image = $_SESSION['ms']->getImage();
     echo ' image: '.$image.'<br>';
@@ -154,7 +142,7 @@ $f3->route('GET /displayOne/@milestone_id', function($f3, $params)
             $ms = new Milestone($row['id'], $row['title'], $row['priority'], $row['pocName'],
                 $row['streetAddress'], $row['city'], $row['province'],
                 $row['postalCode'], $row['cost'], $row['timeTravel'], $row['timeVisit'],
-                $row['day'], $row['month'], $row['year'], $row['season'],
+                $row['day'], $row['month'], $row['year'],
                 $row['image'], $row['ongoing']);
 
             $_SESSION['ms'] = $ms;
@@ -162,11 +150,13 @@ $f3->route('GET /displayOne/@milestone_id', function($f3, $params)
             echo $view->render('views/milestone-summary.html');
         }
         else {
+            $pros = array();
+            $cons = array();
             $ms = new OngoingMilestone($row['id'], $row['title'], $row['priority'], $row['pocName'],
                 $row['streetAddress'], $row['city'], $row['province'],
                 $row['postalCode'], $row['cost'], $row['timeTravel'], $row['timeVisit'],
-                $row['day'], $row['month'], $row['year'], $row['season'],
-                $row['image'], $row['ongoing']);
+                $row['day'], $row['month'], $row['year'],
+                $row['image'], $row['ongoing'], $pros, $cons);
             $_SESSION['ms'] = $ms;
 
             $view = new Template();
@@ -177,19 +167,62 @@ $f3->route('GET /displayOne/@milestone_id', function($f3, $params)
 //define a route to display & process the POC form
 //stay in this route until either rerouted Home vis nav-bar, or
 // continue to next milestone form if an ongoing milestone
-$f3->route('GET|POST /pocForm', function($f3)
+$f3->route('GET|POST /form_1', function($f3)
 {
-    global $dbM;
-
-    $dbM = new MilestoneDB();
-    $table = $dbM->getMilestones();
-    $f3->set('table', $table);
-
     // will stay in this outer conditional until we have a valid milestone
     // point-of-contact (POC) section of information
     if(!empty($_POST)) {
         //Get data from form
         $title = $_POST['title'];
+        $image = $_POST['image'];
+        $day = $_POST['day'];
+        $month = $_POST['month'];
+        $year = $_POST['year'];
+        $cost = $_POST['cost'];
+        $timeTravel = $_POST['timeTravel'];
+        $timeVisit = $_POST['timeVisit'];
+
+        //Add data to hive
+        $f3->set('title', $title);
+        $f3->set('image', $image);
+        $f3->set('day', $day);
+        $f3->set('month', $month);
+        $f3->set('year', $year);
+        $f3->set('cost', $cost);
+        $f3->set('timeTravel', $timeTravel);
+        $f3->set('timeVisit', $timeVisit);
+
+        if (validPOCform()) {
+
+            //Write data to Session
+            $_SESSION['title'] = $_POST['title'];
+            $_SESSION['image'] = $_POST['image'];
+            $_SESSION['day'] = $_POST['day'];
+            $_SESSION['month'] = $_POST['month'];
+            $_SESSION['year'] = $_POST['year'];
+            $_SESSION['cost'] = $_POST['cost'];
+            $_SESSION['timeTravel'] = $_POST['timeTravel'];
+            $_SESSION['timeVisit'] = $_POST['timeVisit'];
+
+            //need more data from the second form
+
+            $f3->reroute('https://bturner.greenriverdev.com/328/Final_Project/form_2');
+        }
+    }
+    $view = new Template();
+    echo $view->render('views/required-data_1.html');
+});
+// define a route to display & process the POC form
+// stay in this route until either rerouted Home via nav-bar, or
+// continue to next OngoingMilestone form depending on the infamous button
+$f3->route('GET|POST /form_2', function($f3)
+{
+    global $dbM;
+
+    // will stay in this outer conditional until we have a valid
+    // point-of-contact (POC) section of information
+    if(!empty($_POST)) {
+        //Get data from form
         $pocName = $_POST['pocName'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
@@ -197,12 +230,9 @@ $f3->route('GET|POST /pocForm', function($f3)
         $city = $_POST['city'];
         $province = $_POST['province'];
         $postalCode = $_POST['postalCode'];
-        $image = $_POST['image'];
         //Ok this one bit me before. If the Ongoing Milestone was NOT set if the form,
         //then $_POST['ongoing'] does not exist
-        $_SESSION['image'] = "https://bturner.greenriverdev.com/328/Final_Project/bucket.jpg";
         //Add data to hive
-        $f3->set('title', $title);
         $f3->set('pocName', $pocName);
         $f3->set('phone', $phone);
         $f3->set('email', $email);
@@ -210,11 +240,9 @@ $f3->route('GET|POST /pocForm', function($f3)
         $f3->set('city', $city);
         $f3->set('province', $province);
         $f3->set('postalCode', $postalCode);
-        $f3->set('image', $image);
-        if (validPOCform()) {
+        if (validSecondForm()) {
 
             //Write data to Session
-            $_SESSION['title'] = $_POST['title'];
             $_SESSION['pocName'] = $_POST['pocName'];
             $_SESSION['phone'] = $_POST['phone'];
             $_SESSION['email'] = $_POST['email'];
@@ -222,12 +250,12 @@ $f3->route('GET|POST /pocForm', function($f3)
             $_SESSION['city'] = $_POST['city'];
             $_SESSION['province'] = $_POST['province'];
             $_SESSION['postalCode'] = $_POST['postalCode'];
-            $_SESSION['image'] = $_POST['image'];
-            //now fold in the classes...parse on OngoingMilestone checkbox, if we are in a  mode with
-            //an "ordinary" Milestone then !ongoing will be true ONLY THIS TIME until submitted
-            //Fat-Free does NOT waste storage for a "false" value
+
+            // !ongoing will be true ONLY THIS TIME until submitted
+            // Fat-Free does NOT allocate storage for a "false" value
 
             //be careful here, if it is not set it doesnt exist!
+            $_SESSION['ongoing'] = -1;
             if(!isset($_POST['ongoing']))
             {
                 $_SESSION['ongoing'] = "0";
@@ -243,58 +271,35 @@ $f3->route('GET|POST /pocForm', function($f3)
             echo $nextMS_id;
 
             //we only need more data if this is an ongoing milestone, otherwise add & display
-            if($_SESSION['ongoing'] == 1)
-                //need more information
+            if($_SESSION['ongoing'] == 1){
+                $pros = array();
+                $cons = array();
+                $ms = new OngoingMilestone($nextMS_id, $_SESSION['title'], $_SESSION['priority'], $_SESSION['pocName'],
+                    $_SESSION['streetAddress'], $_SESSION['city'], $_SESSION['province'],
+                    $_SESSION['postalCode'], $_SESSION['cost'], $_SESSION['timeTravel'], $_SESSION['timeVisit'],
+                    $_SESSION['day'], $_SESSION['month'], $_SESSION['year'],
+                    $_SESSION['image'], $_SESSION['ongoing'], $pros, $cons);
                 $f3->reroute('/ongoingMS-summary');
+             }
             else {
-
                 //instantiate a new Milestone
                 $ms = new Milestone($nextMS_id, $_SESSION['title'], $_SESSION['priority'], $_SESSION['pocName'],
                     $_SESSION['streetAddress'], $_SESSION['city'], $_SESSION['province'],
                     $_SESSION['postalCode'], $_SESSION['cost'], $_SESSION['timeTravel'], $_SESSION['timeVisit'],
-                    $_SESSION['day'], $_SESSION['month'], $_SESSION['year'], $_SESSION['season'],
+                    $_SESSION['day'], $_SESSION['month'], $_SESSION['year'],
                     $_SESSION['image'], $_SESSION['ongoing']);
-
-
-
-                $_SESSION['ms'] = $ms;
-                $f3->set('ms', $ms);
-                $f3->reroute('/debug');
-                //print_r($_SESSION);
-                /*
-                $dbM->insertMS($nextMS_id);
-
-                $f3->reroute('/displayOne/@nextMS_id');
-                */
             }
+            $_SESSION['ms'] = $ms;
+            $f3->set('ms', $ms);
+            //$dbM->insertMS($nextMS_id);
+            if($_SESSION['ongoing'] == 0)
+                $f3->reroute('/displayOne/@nextMS_id');
+            else
+                $f3->reroute('/ongoingMS/@nextMS_id');
         }
     }
     $view = new Template();
-    echo $view->render('views/required-data.html');
-});
-
-$f3->route('GET|POST /milestone-profile', function($f3) {
-    global $dbM;
-
-});
-//Define a route for ongoing milestones. We will only get here via reroute from profile.html
-$f3->route('GET|POST /interests', function($f3) {
-
-    $_SESSION['bio'] = ' ';
-    if(!empty($_POST)) {
-        //Display interests, until REROUTED to summary
-        //form valid?
-        if (validInterestsForm()) {
-            //Write data to Session "member" object
-            $_SESSION['member']->setIndoor($_POST['indoor']);
-            $_SESSION['member']->setOutdoor($_POST['outdoor']);
-
-            $f3->reroute('/summary');
-        }
-    }
-    $view = new Template();
-    echo $view->render('views/interests.html');
-
+    echo $view->render('views/required-data_2.html');
 });
 
 //Run fat free

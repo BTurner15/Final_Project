@@ -4,7 +4,7 @@
  * IT 328 Full Stack Web Development
  * Final Project Assignment:
  * file: ongoingMilestone.php
- * date: Saturday, June 8 2019
+ * date: Sunday, June 9 2019
  * class OngoingMilestone
  *
  * Here I want to conform to the required PEAR coding standards from the git go
@@ -23,7 +23,6 @@
 
 class OngoingMilestone extends Milestone
 {
-    private $_details;
     /*  private methods and properties are NOT inherited. */
     /* protected methods & properties ARE inherited */
     /**

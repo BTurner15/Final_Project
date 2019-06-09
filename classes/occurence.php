@@ -26,21 +26,18 @@ class Occurence
     private $_day;      //first day of event
     private $_month;    //month event occurs
     private $_year;     //year
-    private $_season;   // one of: 'Fall', 'Winter', 'Spring', 'Summer', or 'All year'
     /**
      * Occurence constructor.
      * @param $day
      * @param $month
      * @param $year
-     * @param $season
      *
      * */
-    public function __construct($day, $month, $year, $season)
+    public function __construct($day, $month, $year)
     {
         $this->_day = $day;
         $this->_month = $month;
         $this->_year = $year;
-        $this->_season = $season;
     }
 
     /**
@@ -59,13 +56,6 @@ class Occurence
         return $this->_month;
     }
 
-    /**
-     * @return string
-     */
-    public function getSeason()
-    {
-        return $this->_season;
-    }
 
     /**
      * @return integer
@@ -89,14 +79,6 @@ class Occurence
     public function setMonth($month)
     {
         $this->_month = $month;
-    }
-
-    /**
-     * @param string $season
-     */
-    public function setSeason($season)
-    {
-        $this->_season = $season;
     }
 
     /**

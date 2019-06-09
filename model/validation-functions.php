@@ -107,30 +107,13 @@ function validPOCform()
         global $_SESSION;
         $isValid = true;
 
-        if (!validSeekSex($f3->get('seekSex')))
-        {
-            $isValid = false;
-            $f3->set("errors['seekSex']", "Please select the gender of your desired partner");
-        }
-        else {
-            $_SESSION['seekSex'] = $_POST['seekSex'];
-        }
-
-        if (!validState($f3->get(resState)))
-        {
-            $isValid = false;
-            $f3->set("errors['resState']", "Full spelling or state, or two letter abbreviation please");
-        }
-        else{
-            $_SESSION['resState'] = $_POST['resState'];
-        }
         return $isValid;
     }
 
     function validEmail($email)
     {
         // https://stackoverflow.com/questions/19261987/how-to-check-if-an-email-
-        //address-is-real-or-valid-using-php/19262381
+        // address-is-real-or-valid-using-php/19262381
         // StackOverflow comment #33 Author: Machavity
         if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
             //Email is valid

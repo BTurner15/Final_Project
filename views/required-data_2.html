@@ -2,7 +2,7 @@
 <!-- Bruce Turner, Professor Ostrander, Spring 2019 -->
 <!-- IT 328 Full Stack Web Development -->
 <!-- Final Project Assignment-->
-<!-- File: required-data.html -->
+<!-- File: required-data_2.html -->
 <!-- Date: Saturday June 8 -->
 <html lang="en">
 <head>
@@ -26,23 +26,7 @@
 <div class="container border mt-4">
      <form class="form-group" method="post" action="#">
          <div class="row ml-2">
-             <div class="col-sm-12">
-                 <strong>Title</strong><br>
-                 <label>
-                     <input id="title" class="form-control" type="text" name="title" value="{{ @SESSION['title'] }}"><br>
-                 </label><br>
-             </div>
-         </div>
-         <div class="row ml-2">
-         <div class="col-sm-12">
-             <strong>Image URL</strong><br>
-             <label>
-                 <input id="image" class="form-control" type="text" name="image" value="{{ @SESSION['image'] }}"><br>
-             </label><br>
-         </div>
-         </div>
-          <div class="row ml-2">
-               <div class="col-sm-8">
+               <div class="col-sm-6">
                     <strong>Point of Contact Name</strong><br>
                     <label class="form-control-label" >
                          <input id="pocName" class="form-control" type="text" name="pocName" value="{{ @SESSION['pocName'] }}">
@@ -64,39 +48,39 @@
                          <label><input type="checkbox" value="" name="ongoing" id="ongoing"
                               <check if="{{isset(@SESSION.ongoing)}}" >
                                    checked
-                              </check>> This Milestone has a completion date TBD</label>
+                              </check>> Treat This Milestone as Ongoing</label>
                     </div>
                </div> <!-- end row#1 col one-->
-               <div class="col-sm-4">
-                     <strong>Street Address</strong><br>
-                     <label class="form-control-label" >
+               <div class="col-sm-6">
+                    <strong>Street Address</strong><br>
+                    <label class="form-control-label" >
                          <input id="StreetAddress" class="form-control" type="text" name="streetAddress" value="{{ @SESSION['streetAddress'] }}">
                           <check if="{{ @errors['streetAddress'] }}">
                              <span class="err">{{ @errors['streetAddress'] }}</span>
                           </check>
-                     </label><br>
-                     <strong>City</strong><br>
-                     <label class="form-control-label" >
+                    </label><br>
+                    <strong>City</strong><br>
+                    <label class="form-control-label" >
                          <input id="city" class="form-control" type="text" name="city" value="{{ @SESSION['city'] }}">
                          <check if="{{ @errors['city'] }}">
                               <span class="err">{{ @errors['city'] }}</span>
                          </check>
-                     </label><br>
-                     <strong>Province</strong><br>
-                     <label class="form-control-label" >
+                    </label><br>
+                    <strong>Province</strong><br>
+                    <label class="form-control-label" >
                          <input id="province" class="form-control" type="text" name="province" value="{{ @SESSION['province'] }}">
                          <check if="{{ @errors['province'] }}">
                              <span class="err">{{ @errors['province'] }}</span>
                          </check>
-                     </label><br>
-                     <strong>Postal Code</strong><br>
-                     <label>
+                    </label><br>
+                    <strong>Postal Code</strong><br>
+                    <label>
                          <input id="postalCode" class="form-control" type="text" name="postalCode" value="{{ @SESSION['postalCode'] }}"><br>
                          <check if="{{ @errors['postalCode'] }}">
                              <span class="err">{{ @errors['postalCode'] }}</span>
                          </check>
                      </label><br>
-               </div>
+               </div> <!-- end or col 2 -->
           </div> <!-- end row#1 -->
           <div id="btn" class="container text-md-right pb-2">
                <button  class="btn-primary btn-sm rounded" type="submit">Next ></button>

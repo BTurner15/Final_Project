@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- Bruce Turner, Professor Ostrander, Spring 2019 -->
+<!-- IT 328 Full Stack Web Development -->
+<!-- Final Project Assignment-->
+<!-- File: required-data_1.html -->
+<!-- Date: Sunday June 9 -->
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <title>Add Milestone</title>
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+     <link rel="stylesheet" type="text/css" href="styles/styles.css">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-sm  navbar-default">
+     <a class="navbar-brand" href="/328/Final_Project/">Home</a>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"><span class="navbar-toggler-icon"></span>
+     </button>
+</nav>
+
+<div class="container border mt-4">
+     <form class="form-group" method="post" action="/form_2">
+         <div class="row ml-2">
+             <div class="col-sm-12">
+                 <strong>Title</strong><br>
+                 <label>
+                     <input id="title" class="form-control" type="text" name="title" value="{{ @SESSION['title'] }}"><br>
+                 </label><br>
+             </div>
+         </div>
+         <div class="row ml-2">
+         <div class="col-sm-12">
+             <strong>Image URL</strong><br>
+             <label>
+                 <input id="image" class="form-control" type="text" name="image" value="{{ @SESSION['image'] }}"><br>
+             </label><br>
+         </div>
+         </div>
+          <div class="row ml-2">
+               <div class="col-sm-8">
+                    <strong>Day of Completion</strong><br>
+                    <label class="form-control-label" >
+                         <input id="day" class="form-control" type="text" name="day" value="{{ @SESSION['day'] }}">
+                         <check if="{{ @errors['day'] }}">
+                              <span class="err">{{ @errors['day'] }}</span>
+                         </check>
+                    </label><br>
+                    <strong>Month of Completion</strong><br>
+                    <label>
+                         <input id="month" class="form-control" type="text" name="month" value="{{ @SESSION['month'] }}"><br>
+                         <check if="{{ @errors['month'] }}">
+                            <span class="err">{{ @errors['month'] }}</span>
+                         </check>
+                    </label><br>
+                    <strong>Year of Completion</strong><br>
+                    <label>
+                         <input id="year" class="form-control" type="text" name="year" value="{{ @SESSION['year'] }}">
+                         <check if="{{ @errors['year'] }}">
+                            <span class="err">{{ @errors['year'] }}</span>
+                         </check>
+                    </label><br>
+               </div> <!-- end row#1 col one-->
+               <div class="col-sm-4">
+                     <strong>Cost in US Dollars</strong><br>
+                     <label class="form-control-label" >
+                         <input id="cost" class="form-control" type="text" name="cost" value="{{ @SESSION['cost'] }}">
+                          <check if="{{ @errors['cost'] }}">
+                             <span class="err">{{ @errors['cost'] }}</span>
+                          </check>
+                     </label><br>
+                     <strong>Allowed Travel Days (both ways)</strong><br>
+                     <label class="form-control-label" >
+                         <input id="timeTravel" class="form-control" type="text" name="timeTravel" value="{{ @SESSION['timeTravel'] }}">
+                         <check if="{{ @errors['timeTravel'] }}">
+                              <span class="err">{{ @errors['timeTravel'] }}</span>
+                         </check>
+                     </label><br>
+                     <strong>Days Spent During Event</strong><br>
+                     <label class="form-control-label" >
+                         <input id="timeVisit" class="form-control" type="text" name="timeVisit" value="{{ @SESSION['timeVisit'] }}">
+                         <check if="{{ @errors['timeVisit'] }}">
+                             <span class="err">{{ @errors['timeVisit'] }}</span>
+                         </check>
+                     </label><br>
+               </div>
+          </div> <!-- end row#1 -->
+          <form action="form_2" method="GET">
+               <div id="btn" class="container text-md-right pb-2">
+                     <button  class="btn-primary btn-sm rounded" type="submit">Next ></button>
+               </div>
+          </form>
+     </form>
+</div> <!-- close main container -->
+</body>
+</html>

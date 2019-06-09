@@ -47,20 +47,19 @@ class Milestone
      * @param $day (for Occurence constructor 1..31)
      * @param $month (for Occurence constructor 1...12)
      * @param $year (for Occurence constructor YYYY)
-     * @param $season ('Fall', 'Winter', 'Spring', 'Summer', or 'All year')
      * @param $image
      * @param $ongoing
      */
     public function __construct($id, $title, $priority, $POCName, $streetAddress, $city,
                                 $province, $postalCode, $cost, $timeTravel, $timeVisit, $day,
-                                $month, $year, $season, $image, $ongoing)
+                                $month, $year, $image, $ongoing)
     {
         $this->_id = $id;
         $this->_title = $title;
         $this->_priority = $priority;
         $this->_location = new Location($POCName, $streetAddress, $city, $province, $postalCode );
         $this->_investment = new Investment($cost, $timeTravel, $timeVisit);
-        $this->_occurence = new Occurence($day, $month, $year, $season);
+        $this->_occurence = new Occurence($day, $month, $year);
         $this->_image = $image;
         $this->_ongoing = $ongoing;
     }
