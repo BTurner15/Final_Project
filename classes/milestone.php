@@ -61,11 +61,9 @@ class Milestone
         $this->_ongoing = $ongoing;
     }
     //we are instructed to write our own setters and getters, thus the above eight
-    //data (attributes) will be logical extensions of their respective names. Here
     //impose some alphabetical order to aid in locating the methods (mutator).
     //Presentation of the methods will be ordered:
     //
-    // getId()
     // getImage()
     // getInvestment()
     // getLocation()
@@ -73,14 +71,7 @@ class Milestone
     // getOngoing()
     // getPriority()
     // getTitle()
-    /**
-     * returns the PRIMARY KEY identification number
-    * @return int
-    */
-    public function getID()
-    {
-        return $this->_id;
-    }
+
     /**
     *  returns the string used to locate the image associated with this milestone
     * @return string
@@ -132,14 +123,7 @@ class Milestone
     {
         return $this->_title;
     }
-    /**
-     * sets the PRIMARY KEY identification number
-     * @param int id
-     */
-    public function setID($id)
-    {
-        $this->_id = $id;
-    }
+
     /**
      *  sets the string used to locate the image associated with this milestone
      * @param string

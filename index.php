@@ -44,7 +44,7 @@ $f3->route('GET|POST /debug', function() {
     //our debug route
     global $_SESSION;
 
-    /*
+
     //start with a milestone object. test getters & setters
     $ms = new Milestone('Test Data Structure', '1',
         'Buckaroo', '106th Street NE', 'Auburn', 'WA', 19086,
@@ -53,7 +53,6 @@ $f3->route('GET|POST /debug', function() {
 
     $_SESSION['ms'] = $ms;
 
-    //$_SESSION['id'] = $ms->getID();
     $_SESSION['title'] = $ms->getTitle();
     $_SESSION['Priority'] = $ms->getPriority();
     $_SESSION['POCName'] = $ms->getLocation()->getPOCName();
@@ -69,15 +68,14 @@ $f3->route('GET|POST /debug', function() {
     $_SESSION['year'] = $ms->getOccurence()->getYear();
     $_SESSION['image'] = $ms->getImage();
     $_SESSION['ongoing'] = $ms->getOngoing();
-    */
-
+    //print_r($_SESSION['ms']);
+/*
     $pros = array('1st', '2nd', '3rd', '4th', '5th');
     $cons = array('c1','c2','c3', 'c4', 'c5');
     $ms2 = new OngoingMilestone( 'OM for Summer Doodle', 10, 'Buckaroo',
         '106 10th Street', 'Auburn', 'WA', 98002, 10000,
         1, 1, 1, 1, 2020,
         'images/Summer.jpg', 1, $pros, $cons);
-
 
 
     //$_SESSION['id_2'] = $ms2->getID();
@@ -98,9 +96,11 @@ $f3->route('GET|POST /debug', function() {
     $_SESSION['ongoing_2'] = $ms2->getOngoing();
     $_SESSION['ms2'] = $ms2;
     print_r($_SESSION['ms2']);
+*/
 
     $view = new Template();
-    echo $view->render('views/debug2.html');
+    echo $view->render('views/debug.html');
+
 
 });
 
@@ -127,7 +127,7 @@ $f3->route('GET /displayOne/@milestone_id', function($f3, $params)
         $row = $dbM->getMilestone($milestone_id);
 
         if($row['ongoing']==0) {
-            $ms = new Milestone($row['id'], $row['title'], $row['priority'], $row['pocName'],
+            $ms = new Milestone($row['title'], $row['priority'], $row['pocName'],
                 $row['streetAddress'], $row['city'], $row['province'],
                 $row['postalCode'], $row['cost'], $row['timeTravel'], $row['timeVisit'],
                 $row['day'], $row['month'], $row['year'],

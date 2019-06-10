@@ -6,21 +6,20 @@
 </head>
 <body>
 <p> Title: {{ @SESSION['ms']->getTitle() }} </p>
-<p> ID: {{ @SESSION['ms']->getID() }} </p>
-<p> priority: {{ @SESSION['priority'] }} </p>
-<p> POCName: {{ @SESSION['POCName'] }} </p>
+<p> priority: {{ @SESSION['ms']->getPriority() }} </p>
+<p> POCName: {{ @SESSION['ms']->getLocation()->getPOCName() }} </p>
 <p> streetAddress: {{ @SESSION['ms']->getLocation()->getStreetAddress() }} </p>
 <p> city: {{ @SESSION['ms']->getLocation()->getCity() }} </p>
 <p> province: {{ @SESSION['ms']->getLocation()->getProvince() }} </p>
-<p> postalCode: {{ @SESSION['postalCode'] }}</p>
-<p> cost: {{ @SESSION['cost'] }} </p>
-<p> timeTravel: {{ @SESSION['timeTravel']  }} </p>
-<p> timeVisit: {{ @SESSION['timeVisit'] }} </p>
-<p> day: {{@SESSION['day'] }} </p>
-<p> month: {{ @SESSION['month'] }} </p>
-<p> year: {{ @SESSION['year'] }}</p>
-<p> image: {{ @SESSION['image'] }} </p>
-<p> ongoing: {{ @SESSION['ongoing'] }} </p>
+<p> postalCode: {{ @SESSION['ms']->getLocation()->getPostalCode() }}</p>
+<p> cost: {{ @SESSION['ms']->getInvestment()->getCost() }} </p>
+<p> timeTravel: {{ @SESSION['ms']->getInvestment()->getTimeTravel()  }} </p>
+<p> timeVisit: {{ @SESSION['ms']->getInvestment()->getTimeVisit() }} </p>
+<p> day: {{@SESSION['ms']->getOccurence()->getDay() }} </p>
+<p> month: {{ @SESSION['ms']->getOccurence()->getMonth() }} </p>
+<p> year: {{ @SESSION['ms']->getOccurence()->getYear() }}</p>
+<p> image: {{ @SESSION['ms']->getImage() }} </p>
+<p> ongoing: {{ @SESSION['ms']->getOngoing() }} </p>
 
 
 </body>
