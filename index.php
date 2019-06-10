@@ -189,9 +189,7 @@ $f3->route('GET|POST /form_1', function($f3)
     $view = new Template();
     echo $view->render('views/required-data_1.html');
 });
-// define a route to display & process the POC form
-// stay in this route until either rerouted Home via nav-bar, or
-// continue to next OngoingMilestone form depending on the infamous button
+// define a route to display & process the contact information form
 $f3->route('GET|POST /form_2', function($f3)
 {
     global $dbM;
