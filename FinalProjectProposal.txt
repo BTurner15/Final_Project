@@ -1,0 +1,35 @@
+Final Project Proposal
+1. Team member names
+Team: Bruce Turner
+2. Project title: Bucket
+Maintain and manipulate a SQL database of “bucket” list items, another words those
+ tasks the user desires to accomplish, experience, achieve, etc. 
+I have maintained such a list, handwritten, for decades.
+
+3. Description of the project
+My objective is to have a database which allows some limited flexibility in displaying,
+ editing, and searching a list of events that for whatever reason I literally “…want to do”
+ prior to the end of the journey in this dimension (death).
+
+I note the abstract nature of an “event”, for example visiting a place  (Victoria Falls), 
+performing some action (donating $5000 to a worthy cause or enterprise), or 
+experiencing something (Biking the Danube River), or graduating GRCC Software 
+Development, or meeting my grandson who turns three this month.
+
+Security should be enforced with username & password. Provision for simple queries 
+to be structured (by geographic area, or estimated financial investment,  time frame, 
+etc.) For example, say I am visiting my grandson (a task event) who lives with his 
+mother in Philadelphia. Perhaps I would search the data base to see what other tasks 
+are in that area (two birds with one stone).
+
+Some data structures fall out logically, since all bucket list entries involve geographic 
+area, have associated temporal quantities, some priority, and other objects.
+The real payoff here is to establish a tool that will be helpful, fun, and has some 
+personal long term gratification involved.
+
+An equally powerful desire is to cement some of the many elements that have been 
+covered during the course of IT 328. I am close to being “familiar” enough to
+ work with JavaScript, HTML/CSS, and PHP. Yet to be covered are PDO’s,
+ and integrating use of SQL (it has been a year this past winter since IT 305, 
+and JavaScript IT 207 last summer). That is the real payoff. I could quickly lose 
+any skills from Spring 2019 over the summer.
