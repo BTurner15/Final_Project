@@ -4,7 +4,7 @@
  * IT 328 Full Stack Web Development
  * Final Project Assignment:
  * file: milestone.php
- * date: Friday, June 7 2019
+ * date: Monday, June 10 2019
  * class Milestone
  *
  * Here I want to conform to the required PEAR coding standards from the git go
@@ -22,7 +22,6 @@
 // the above is 80 characters
 class Milestone
 {
-    private $_id;
     private $_title;
     private $_priority;
     private $_location;
@@ -33,7 +32,6 @@ class Milestone
 
     /**
      * Milestone constructor.
-     * @param $id
      * @param $title
      * @param $priority
      * @param $POCName (for Location constructor)
@@ -50,11 +48,10 @@ class Milestone
      * @param $image
      * @param $ongoing
      */
-    public function __construct($id, $title, $priority, $POCName, $streetAddress, $city,
+    public function __construct($title, $priority, $POCName, $streetAddress, $city,
                                 $province, $postalCode, $cost, $timeTravel, $timeVisit, $day,
                                 $month, $year, $image, $ongoing)
     {
-        $this->_id = $id;
         $this->_title = $title;
         $this->_priority = $priority;
         $this->_location = new Location($POCName, $streetAddress, $city, $province, $postalCode );

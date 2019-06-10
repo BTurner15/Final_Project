@@ -160,9 +160,9 @@ class MilestoneDB
         $cost= $_SESSION['ms']->getInvestment()->getCost();
         $timeTravel = $_SESSION['ms']->getInvestment()->getTimeTravel();
         $timeVisit = $_SESSION['ms']->getInvestment()->getTimeVisit();
-        $day = $_SESSION['ms']->getOccurance()->getDay();
-        $month = $_SESSION['ms']->getOccurance()->getMonth();
-        $year = $_SESSION['ms']->getOccurance()->getYear();
+        $day = $_SESSION['ms']->getOccurence()->getDay();
+        $month = $_SESSION['ms']->getOccurence()->getMonth();
+        $year = $_SESSION['ms']->getOccurence()->getYear();
         $image = $_SESSION['ms']->getImage();
         $ongoing = $_SESSION['ms']->getOngoing();
 
@@ -178,14 +178,14 @@ class MilestoneDB
 
         $statement->bindParam(':title', $title, PDO::PARAM_STR);
         $statement->bindParam(':priority', $priority, PDO::PARAM_INT);
-        $statement->bindParam(':pocName', $age, PDO::PARAM_STR);
-        $statement->bindParam(':streetAddress', $gender, PDO::PARAM_STR);
-        $statement->bindParam(':city', $phone, PDO::PARAM_STR);
-        $statement->bindParam(':province', $email, PDO::PARAM_STR);
-        $statement->bindParam(':postalCode', $state, PDO::PARAM_INT);
-        $statement->bindParam(':cost', $seeking, PDO::PARAM_INT);
-        $statement->bindParam(':timeTravel', $bio, PDO::PARAM_INT);
-        $statement->bindParam(':timeVisit', $premium, PDO::PARAM_INT);
+        $statement->bindParam(':pocName', $pocName, PDO::PARAM_STR);
+        $statement->bindParam(':streetAddress', $streetAddress, PDO::PARAM_STR);
+        $statement->bindParam(':city', $city, PDO::PARAM_STR);
+        $statement->bindParam(':province', $province, PDO::PARAM_STR);
+        $statement->bindParam(':postalCode', $postalCode, PDO::PARAM_INT);
+        $statement->bindParam(':cost', $cost, PDO::PARAM_INT);
+        $statement->bindParam(':timeTravel', $timeTravel, PDO::PARAM_INT);
+        $statement->bindParam(':timeVisit', $timeVisit, PDO::PARAM_INT);
         $statement->bindParam(':day', $day, PDO::PARAM_INT);
         $statement->bindParam(':month', $month, PDO::PARAM_INT);
         $statement->bindParam(':year', $year, PDO::PARAM_INT);

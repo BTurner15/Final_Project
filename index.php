@@ -46,14 +46,14 @@ $f3->route('GET|POST /debug', function() {
 
     /*
     //start with a milestone object. test getters & setters
-    $ms = new Milestone( '10', 'Test Data Structure', '1',
+    $ms = new Milestone('Test Data Structure', '1',
         'Buckaroo', '106th Street NE', 'Auburn', 'WA', 19086,
         10000, 1, 21, 31, 12, 2021,
         'images/MT Pose.jpg', 0);
 
     $_SESSION['ms'] = $ms;
 
-    $_SESSION['id'] = $ms->getID();
+    //$_SESSION['id'] = $ms->getID();
     $_SESSION['title'] = $ms->getTitle();
     $_SESSION['Priority'] = $ms->getPriority();
     $_SESSION['POCName'] = $ms->getLocation()->getPOCName();
@@ -73,14 +73,14 @@ $f3->route('GET|POST /debug', function() {
 
     $pros = array('1st', '2nd', '3rd', '4th', '5th');
     $cons = array('c1','c2','c3', 'c4', 'c5');
-    $ms2 = new OngoingMilestone( '20', 'OM for Summer Doodle', '10',
-        'Summer Doodle', '106th Street NE', 'Auburn', 'WA', 19086,
-        200000, 0, 365, 1, 1, 2020,
-        'images/Summer Doodle.jpg', 1, $pros, $cons);
+    $ms2 = new OngoingMilestone( 'OM for Summer Doodle', 10, 'Buckaroo',
+        '106 10th Street', 'Auburn', 'WA', 98002, 10000,
+        1, 1, 1, 1, 2020,
+        'images/Summer.jpg', 1, $pros, $cons);
 
 
 
-    $_SESSION['id_2'] = $ms2->getID();
+    //$_SESSION['id_2'] = $ms2->getID();
     $_SESSION['title_2'] = $ms2->getTitle();
     $_SESSION['priority_2'] = $ms2->getPriority();
     $_SESSION['POCName_2'] = $ms2->getLocation()->getPOCName();
@@ -228,11 +228,9 @@ $f3->route('GET|POST /form_2', function($f3)
             if(!isset($_POST['ongoing']))
             {
                 $_SESSION['ongoing'] = "0";
-                $ongoing = 0;
             }
             else {
                 $_SESSION['ongoing'] = "1";
-                $ongoing = 1;
             }
             //get the next ID
             //$nextMS_id = $dbM->lastInsertId() + 1;
@@ -247,7 +245,6 @@ $f3->route('GET|POST /form_2', function($f3)
                     $_SESSION['postalCode'], $_SESSION['cost'], $_SESSION['timeTravel'], $_SESSION['timeVisit'],
                     $_SESSION['day'], $_SESSION['month'], $_SESSION['year'],
                     $_SESSION['image'], $_SESSION['ongoing'], $pros, $cons);
-                $f3->reroute('/ongoingMS-summary');
              }
             else {
                 //instantiate a new Milestone
@@ -258,12 +255,8 @@ $f3->route('GET|POST /form_2', function($f3)
                     $_SESSION['image'], $_SESSION['ongoing'], "", "");
             }
             $_SESSION['ms'] = $ms;
-            $f3->set('ms', $ms);
-            //$dbM->insertMS($nextMS_id);
-            if($_SESSION['ongoing'] == 0)
-                $f3->reroute('/displayOne/@nextMS_id');
-            else
-                $f3->reroute('/ongoingMS/@nextMS_id');
+            $dbM->insertMS();
+            $f3->reroute('https://bturner.greenriverdev.com/328/Final_Project');
         }
     }
     $view = new Template();

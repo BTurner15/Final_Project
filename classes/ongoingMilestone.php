@@ -4,7 +4,7 @@
  * IT 328 Full Stack Web Development
  * Final Project Assignment:
  * file: ongoingMilestone.php
- * date: Sunday, June 9 2019
+ * date: Monday, June 10 2019
  * class OngoingMilestone
  *
  * Here I want to conform to the required PEAR coding standards from the git go
@@ -33,13 +33,13 @@ class OngoingMilestone extends Milestone
      * @param $_pros
      * @param $_cons
      */
-    public function __construct($id, $title, $priority, $POCName, $streetAddress, $city,
+    public function __construct($title, $priority, $POCName, $streetAddress, $city,
                                 $province, $postalCode, $cost, $timeTravel, $timeVisit, $day,
                                 $month, $year, $image, $ongoing,
                                 $pros = "", $cons = "")
     {
         //set parent constructor values
-        parent::__construct($id, $title, $priority, $POCName, $streetAddress, $city,
+        parent::__construct($title, $priority, $POCName, $streetAddress, $city,
                             $province, $postalCode, $cost, $timeTravel, $timeVisit, $day,
                             $month, $year, $image, $ongoing);
 
