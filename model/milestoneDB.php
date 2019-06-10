@@ -134,16 +134,16 @@ class MilestoneDB
         return $bucket;
     }
 
-    function insertMS($id)
+    function insertMS()
     {
         //insert a new milestone
         /*
          *
-         * INSERT INTO bucket(id, title, priority, pocName, streetAddress, city, province,
+         * INSERT INTO bucket(title, priority, pocName, streetAddress, city, province,
          *                    postalCode, cost, timeTravel, timeVisit, day, month, year,
-         *                    season, image, ongoing)
-         *             VALUES('1', 'Meet Grandson', '9', 'Sara', '715 Main Street', 'Philadelphia', 'PA',
-         *                    '19086', '1125', '2', '7', '1', '9', '2019', 'summer', 'mt.jpeg', 0);
+         *                    image, ongoing)
+         *             VALUES('Meet Grandson', '9', 'Sara', '715 Main Street', 'Philadelphia', 'PA',
+         *                    '19086', '1125', '2', '7', '1', '9', '2019', 'mt.jpeg', 0);
          */
         global $dbM;
         global $_SESSION;
@@ -151,7 +151,6 @@ class MilestoneDB
         $dbM = $this->connect();
         // 0. get data from $_SESSION[]. If I ever wanted to test my getters(), how about now!
         $title = $_SESSION['ms']->getTitle();
-        echo $title;
         $priority = $_SESSION['ms']->getPriority();
         $pocName = $_SESSION['ms']->getLocation()->getPOCName();
         $streetAddress = $_SESSION['ms']->getLocation()->getStreetAddress();
@@ -164,21 +163,19 @@ class MilestoneDB
         $day = $_SESSION['ms']->getOccurance()->getDay();
         $month = $_SESSION['ms']->getOccurance()->getMonth();
         $year = $_SESSION['ms']->getOccurance()->getYear();
-        $season = $_SESSION['ms']->getOccurance()->getSeason();
         $image = $_SESSION['ms']->getImage();
         $ongoing = $_SESSION['ms']->getOngoing();
-print_r($_SESSION['ms']);
-/*
+
         // 1. define the query
 
-        $sql = "INSERT INTO bucket(`id`, `title`, `priority`, `pocName`, `streetAddress`, `city`, `province`, `postalCode`, `cost`, `timeTravel`, `timeVisit`,`day`, `month`, `year`, `season`, `image`, `ongoing`)
-            VALUES (:id, :title, :priority, :pocName, :streetAddress, :city, :province, :postalCode, :cost, :timeTravel, :timeVisit, :day, :month, :year, :season, :image, :ongoing)";
+        $sql = "INSERT INTO bucket(`title`, `priority`, `pocName`, `streetAddress`, `city`, `province`, `postalCode`, `cost`, `timeTravel`, `timeVisit`,`day`, `month`, `year`,`image`, `ongoing`)
+            VALUES (:title, :priority, :pocName, :streetAddress, :city, :province, :postalCode, :cost, :timeTravel, :timeVisit, :day, :month, :year, :image, :ongoing)";
 
         // 2. prepare the statement
         $statement = $dbM->prepare($sql);
 
         //3. bind parameters
-        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+
         $statement->bindParam(':title', $title, PDO::PARAM_STR);
         $statement->bindParam(':priority', $priority, PDO::PARAM_INT);
         $statement->bindParam(':pocName', $age, PDO::PARAM_STR);
@@ -192,7 +189,6 @@ print_r($_SESSION['ms']);
         $statement->bindParam(':day', $day, PDO::PARAM_INT);
         $statement->bindParam(':month', $month, PDO::PARAM_INT);
         $statement->bindParam(':year', $year, PDO::PARAM_INT);
-        $statement->bindParam(':season', $season, PDO::PARAM_STR);
         $statement->bindParam(':image', $image, PDO::PARAM_STR);
         $statement->bindParam(':ongoing', $ongoing, PDO::PARAM_INT);
         // 4. execute the statement
@@ -200,7 +196,7 @@ print_r($_SESSION['ms']);
 
         // 5. return the result
         return $result;
-*/
+
     }
 
     function getMilestone($id)
@@ -223,23 +219,27 @@ print_r($_SESSION['ms']);
         // 5. return the result
         $row = $statement->fetch(PDO::FETCH_ASSOC);
 
-        //check if this is a premium member
+        //check if this is an OngoingMilestone
         /*
-        if ($result['ongoing'] == 1) {
+        if ($row['ongoing'] == 1) {
             //my efforts here fail
-            return new PremiumMember($result['fname'], $result['lname'], $result['age'],
-                $result['gender'], $result['phone'], $result['email'], $result['state'],
-                $result['seeking'], $result['bio'], "");
+            $pros = array();
+            $cons = array();
+            return new OngoingMilestone($row['title'], $row['priority'], $row['pocName'],
+                $row['streetAddress'], $row['city'], $row['province'], $row['postalCode'],
+                $row['cost'], $row['timeTravel'], $row['timeVisit'], $row['day'],
+                $row['month'], $row['year'], "");
         }
         else
         {
-            return new Member($result['fname'], $result['lname'], $result['age'],
+            return new Milestone($result['fname'], $result['lname'], $result['age'],
                               $result['gender'], $result['phone'], $result['email'], $result['state'],
                               $result['seeking'], $result['bio']);
         }
-*/
+        */
         return $row;
     }
+
     function close()
     {
         global $dbM;

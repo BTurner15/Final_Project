@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Debug_2</title>
+</head>
+<body>
+<p> Title: {{ @SESSION['ms_2']->getTitle() }} </p>
+<p> ID: {{ @SESSION['ms_2']->getID() }} </p>
+<p> priority: {{ @SESSION['priority_2'] }} </p>
+<p> POCName: {{ @SESSION['POCName_2'] }} </p>
+<p> streetAddress: {{ @SESSION['ms_2']->getLocation()->getStreetAddress() }} </p>
+<p> city: {{ @SESSION['ms_2']->getLocation()->getCity() }} </p>
+<p> province: {{ @SESSION['ms']->getLocation()->getProvince() }} </p>
+<p> postalCode: {{ @SESSION['postalCode_2'] }}</p>
+<p> cost: {{ @SESSION['cost'] }} </p>
+<p> timeTravel: {{ @SESSION['timeTravel_2']  }} </p>
+<p> timeVisit: {{ @SESSION['timeVisit_2'] }} </p>
+<p> day: {{@SESSION['day_2'] }} </p>
+<p> month: {{ @SESSION['month_2'] }} </p>
+<p> year: {{ @SESSION['year_2'] }}</p>
+<p> image: {{ @SESSION['image_2'] }} </p>
+<p> ongoing: {{ @SESSION['ongoing_2'] }} </p>
+
+
+</body>
+</html>

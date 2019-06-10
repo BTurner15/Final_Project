@@ -19,19 +19,7 @@ require_once('model/validation-functions.php');
 session_start();
 
 $f3 = Base::instance();
-/*
-//Turn on Fat-Free error reporting
-set_exception_handler(function($obj) use($f3){
-    $f3->error(500,$obj->getmessage(),$obj->gettrace());
-});
-set_error_handler(function($code,$text) use($f3)
-{
-    if (error_reporting())
-    {advent
-        $f3->error(500,$text);
-    }
-});
-*/
+
 $f3->set('DEBUG', 3);
 
 $f3->set('positives', array('adventurous', 'quirky', 'challenging', 'always wanted to',
@@ -55,64 +43,64 @@ $f3->route('GET /', function(){
 $f3->route('GET|POST /debug', function() {
     //our debug route
     global $_SESSION;
+
     /*
     //start with a milestone object. test getters & setters
-    $ms = new Milestone( '1', 'Meet Grandson', '9', 'Sara', '715 Main Street', 'Philadelphia', 'PA', '19086',
-        '1125', '2', '7', '1', '9', '2019', 'summer', 'images/MT Pose.jpg', 0
-    );
+    $ms = new Milestone( '10', 'Test Data Structure', '1',
+        'Buckaroo', '106th Street NE', 'Auburn', 'WA', 19086,
+        10000, 1, 21, 31, 12, 2021,
+        'images/MT Pose.jpg', 0);
 
     $_SESSION['ms'] = $ms;
-    $name = 'Summer Turner';
-    $isValid = ctype_alpha($name);
-    if($isValid == 0)echo'NOT SET';
-    if($isValid == 1)echo'SET';
-    //$view = new Template();
-    //echo $view->render('views/debug.html');
+
+    $_SESSION['id'] = $ms->getID();
+    $_SESSION['title'] = $ms->getTitle();
+    $_SESSION['Priority'] = $ms->getPriority();
+    $_SESSION['POCName'] = $ms->getLocation()->getPOCName();
+    $_SESSION['city'] = $ms->getLocation()->getCity();
+    $_SESSION['streetAddress'] = $ms->getLocation()->getStreetAddress();
+    $_SESSION['province'] = $ms->getLocation()->getProvince();
+    $_SESSION['postalCode'] = $ms->getLocation()->getPostalCode();
+    $_SESSION['cost'] = $ms->getInvestment()->getCost();
+    $_SESSION['timeTravel'] = $ms->getInvestment()->getTimeTravel();
+    $_SESSION['timeVisit'] = $ms->getInvestment()->getTimeVisit();
+    $_SESSION['day'] = $ms->getOccurence()->getDay();
+    $_SESSION['month'] = $ms->getOccurence()->getMonth();
+    $_SESSION['year'] = $ms->getOccurence()->getYear();
+    $_SESSION['image'] = $ms->getImage();
+    $_SESSION['ongoing'] = $ms->getOngoing();
     */
-    $title = $_SESSION['ms']->getTitle();
-    echo 'title: '.$title.'<br>';
 
-    $priority = $_SESSION['ms']->getPriority();
-    echo 'priority: '.$priority.'<br>';
+    $pros = array('1st', '2nd', '3rd', '4th', '5th');
+    $cons = array('c1','c2','c3', 'c4', 'c5');
+    $ms2 = new OngoingMilestone( '20', 'OM for Summer Doodle', '10',
+        'Summer Doodle', '106th Street NE', 'Auburn', 'WA', 19086,
+        200000, 0, 365, 1, 1, 2020,
+        'images/Summer Doodle.jpg', 1, $pros, $cons);
 
-    $pocName = $_SESSION['ms']->getLocation()->getPOCName();
-    echo 'pocName: '.$pocName.'<br>';
 
-    $streetAddress = $_SESSION['ms']->getLocation()->getStreetAddress();
-    echo 'streetAddress: '.$streetAddress.'<br>';
 
-    $city = $_SESSION['ms']->getLocation()->getCity();
-    echo 'city: '.$city.'<br>';
+    $_SESSION['id_2'] = $ms2->getID();
+    $_SESSION['title_2'] = $ms2->getTitle();
+    $_SESSION['priority_2'] = $ms2->getPriority();
+    $_SESSION['POCName_2'] = $ms2->getLocation()->getPOCName();
+    $_SESSION['city_2'] = $ms2->getLocation()->getCity();
+    $_SESSION['streetAddress_2'] = $ms2->getLocation()->getStreetAddress();
+    $_SESSION['province_2'] = $ms2->getLocation()->getProvince();
+    $_SESSION['postalCode_2'] = $ms2->getLocation()->getPostalCode();
+    $_SESSION['cost_2'] = $ms2->getInvestment()->getCost();
+    $_SESSION['timeTravel_2'] = $ms2->getInvestment()->getTimeTravel();
+    $_SESSION['timeVisit_2'] = $ms2->getInvestment()->getTimeVisit();
+    $_SESSION['day_2'] = $ms2->getOccurence()->getDay();
+    $_SESSION['month_2'] = $ms2->getOccurence()->getMonth();
+    $_SESSION['year_2'] = $ms2->getOccurence()->getYear();
+    $_SESSION['image_2'] = $ms2->getImage();
+    $_SESSION['ongoing_2'] = $ms2->getOngoing();
+    $_SESSION['ms2'] = $ms2;
+    print_r($_SESSION['ms2']);
 
-    $province = $_SESSION['ms']->getLocation()->getProvince();
-    echo 'province: '.$province.'<br>';
-
-    $postalCode= $_SESSION['ms']->getLocation()->getPostalCode();
-    echo 'postalCode: '.$postalCode.'<br>';
-
-    $cost= $_SESSION['ms']->getInvestment()->getCost();
-    echo ' cost: '.$cost.'<br>';
-
-    $timeTravel = $_SESSION['ms']->getInvestment()->getTimeTravel();
-    echo ' timeTravel: '.$timeTravel.'<br>';
-
-    $timeVisit = $_SESSION['ms']->getInvestment()->getTimeVisit();
-    echo ' timeVisit: '.$timeVisit.'<br>';
-
-    $day = $_SESSION['ms']->getOccurence()->getDay();
-    echo ' day: '.$day.'<br>';
-
-    $month = $_SESSION['ms']->getOccurence()->getMonth();
-    echo ' month: '.$month.'<br>';
-
-    $year = $_SESSION['ms']->getOccurence()->getYear();
-    echo ' year: '.$year.'<br>';
-
-    $image = $_SESSION['ms']->getImage();
-    echo ' image: '.$image.'<br>';
-
-    $ongoing = $_SESSION['ms']->getOngoing();
-    echo ' ongoing: '.$ongoing.'<br>';
+    $view = new Template();
+    echo $view->render('views/debug2.html');
 
 });
 
@@ -182,18 +170,7 @@ $f3->route('GET|POST /form_1', function($f3)
         $timeTravel = $_POST['timeTravel'];
         $timeVisit = $_POST['timeVisit'];
 
-        //Add data to hive
-        $f3->set('title', $title);
-        $f3->set('image', $image);
-        $f3->set('day', $day);
-        $f3->set('month', $month);
-        $f3->set('year', $year);
-        $f3->set('cost', $cost);
-        $f3->set('timeTravel', $timeTravel);
-        $f3->set('timeVisit', $timeVisit);
-
-        if (validPOCform()) {
-
+        if (validPOCform2()) {
             //Write data to Session
             $_SESSION['title'] = $_POST['title'];
             $_SESSION['image'] = $_POST['image'];
@@ -206,8 +183,8 @@ $f3->route('GET|POST /form_1', function($f3)
 
             //need more data from the second form
 
-            $f3->reroute('https://bturner.greenriverdev.com/328/Final_Project/form_2');
-        }
+            $f3->reroute('/form_2');
+        } //https://bturner.greenriverdev.com/328/Final_Project/form_2
     }
     $view = new Template();
     echo $view->render('views/required-data_1.html');
@@ -218,11 +195,11 @@ $f3->route('GET|POST /form_1', function($f3)
 $f3->route('GET|POST /form_2', function($f3)
 {
     global $dbM;
-
+    $dbM = new MilestoneDB();
     // will stay in this outer conditional until we have a valid
     // point-of-contact (POC) section of information
     if(!empty($_POST)) {
-        //Get data from form
+        //Get data from form 2
         $pocName = $_POST['pocName'];
         $phone = $_POST['phone'];
         $email = $_POST['email'];
@@ -233,14 +210,8 @@ $f3->route('GET|POST /form_2', function($f3)
         //Ok this one bit me before. If the Ongoing Milestone was NOT set if the form,
         //then $_POST['ongoing'] does not exist
         //Add data to hive
-        $f3->set('pocName', $pocName);
-        $f3->set('phone', $phone);
-        $f3->set('email', $email);
-        $f3->set('streetAddress', $streetAddress);
-        $f3->set('city', $city);
-        $f3->set('province', $province);
-        $f3->set('postalCode', $postalCode);
-        if (validSecondForm()) {
+
+        if (validSecondForm2()) {
 
             //Write data to Session
             $_SESSION['pocName'] = $_POST['pocName'];
@@ -265,16 +236,15 @@ $f3->route('GET|POST /form_2', function($f3)
                 $_SESSION['ongoing'] = "1";
                 $ongoing = 1;
             }
-            $f3->set('ongoing', $ongoing);
             //get the next ID
-            $nextMS_id = $dbM->lastInsertId() + 1;
-            echo $nextMS_id;
+            //$nextMS_id = $dbM->lastInsertId() + 1;
+            //echo $nextMS_id;
 
-            //we only need more data if this is an ongoing milestone, otherwise add & display
+            //we only need more data if this is an OngoingMilestone, otherwise add & display
             if($_SESSION['ongoing'] == 1){
                 $pros = array();
                 $cons = array();
-                $ms = new OngoingMilestone($nextMS_id, $_SESSION['title'], $_SESSION['priority'], $_SESSION['pocName'],
+                $ms = new OngoingMilestone($_SESSION['title'], $_SESSION['priority'], $_SESSION['pocName'],
                     $_SESSION['streetAddress'], $_SESSION['city'], $_SESSION['province'],
                     $_SESSION['postalCode'], $_SESSION['cost'], $_SESSION['timeTravel'], $_SESSION['timeVisit'],
                     $_SESSION['day'], $_SESSION['month'], $_SESSION['year'],
@@ -283,11 +253,11 @@ $f3->route('GET|POST /form_2', function($f3)
              }
             else {
                 //instantiate a new Milestone
-                $ms = new Milestone($nextMS_id, $_SESSION['title'], $_SESSION['priority'], $_SESSION['pocName'],
+                $ms = new Milestone($_SESSION['title'], $_SESSION['priority'], $_SESSION['pocName'],
                     $_SESSION['streetAddress'], $_SESSION['city'], $_SESSION['province'],
                     $_SESSION['postalCode'], $_SESSION['cost'], $_SESSION['timeTravel'], $_SESSION['timeVisit'],
                     $_SESSION['day'], $_SESSION['month'], $_SESSION['year'],
-                    $_SESSION['image'], $_SESSION['ongoing']);
+                    $_SESSION['image'], $_SESSION['ongoing'], "", "");
             }
             $_SESSION['ms'] = $ms;
             $f3->set('ms', $ms);

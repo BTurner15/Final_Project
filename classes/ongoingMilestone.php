@@ -35,13 +35,13 @@ class OngoingMilestone extends Milestone
      */
     public function __construct($id, $title, $priority, $POCName, $streetAddress, $city,
                                 $province, $postalCode, $cost, $timeTravel, $timeVisit, $day,
-                                $month, $year, $season, $image, $ongoing,
+                                $month, $year, $image, $ongoing,
                                 $pros = "", $cons = "")
     {
         //set parent constructor values
         parent::__construct($id, $title, $priority, $POCName, $streetAddress, $city,
                             $province, $postalCode, $cost, $timeTravel, $timeVisit, $day,
-                            $month, $year, $season, $image, $ongoing);
+                            $month, $year, $image, $ongoing);
 
         $this->_pros = $pros;
         $this->_cons = $cons;

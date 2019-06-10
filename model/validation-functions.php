@@ -3,7 +3,7 @@
  * IT 328 Full Stack Web Development
  * Final Project: with form validation & sticky forms
  * file: validation-functions.php
- * date: Saturday, June 8 2019
+ * date: Sunday, June 9 2019
  * "
  * validPOCname() checks to see that a string is all alphabetic
  * validNumberRange() checks to see that an value is numeric and between 1 and 10
@@ -17,6 +17,14 @@
 /* Validate the POC information form
  * @return boolean
  */
+function validPOCform2()
+{
+    return true;
+}
+function validSecondForm2()
+{
+    return true;
+}
 function validPOCform()
 {
     global $f3;
