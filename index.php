@@ -3,7 +3,7 @@
  * IT 328 Full Stack Web Development
  * Final Project: Bucket of Milestones
  * file: index.php  is the default landing page, defines various routes
- * date: Sunday,June 9 2019
+ * date: Monday,June 10 2019
 */
 //3456789_123456789_123456789_123456789_123456789_123456789_123456789_1234567890
 // the above is 80 characters
@@ -261,6 +261,17 @@ $f3->route('GET|POST /form_2', function($f3)
     }
     $view = new Template();
     echo $view->render('views/required-data_2.html');
+});
+//Define a route to display one milestone using an ID#
+$f3->route('GET /deleteOne/@milestone_id', function($f3, $params)
+{
+    global $dbM;
+    $dbM = new MilestoneDB();
+    $milestone_id = $params['milestone_id'];
+    $result = $dbM->deleteMilestone($milestone_id);
+
+    $view = new Template();
+    echo $view->render('views/home.html');
 });
 
 //Run fat free

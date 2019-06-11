@@ -239,7 +239,27 @@ class MilestoneDB
         */
         return $row;
     }
+    function deleteMilestone($id)
+    {
+        global $dbM;
+        $dbM = $this->connect();
 
+        // 1. define the query
+        $sql = "DELETE * FROM bucket WHERE id = :id";
+
+        // 2. prepare the statement
+        $statement = $dbM->prepare($sql);
+
+        // 3. bind parameters
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+
+        // 4. execute the statement
+        $statement->execute();
+
+        // 5. return the result
+
+        return;
+    }
     function close()
     {
         global $dbM;

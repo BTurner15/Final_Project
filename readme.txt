@@ -26,7 +26,8 @@ display the contact information form: 'GET|POST /form_2'
       
 (4.) Data can be viewed, added, updated, and deleted.
       Not Yet: Data can be viewed, and added. As of Monday, June 10th the only active (supported) functions
-      are "View" and "Add Milestone"
+      are "View" and "Add Milestone" from the menu. "Delete" works tested, but no button yet.
+
 (5.) Has a history of commits from both team members to a Git repositor
        the Git repo reflects continuous commits by all members (just me, actually)
 
@@ -39,5 +40,6 @@ display the contact information form: 'GET|POST /form_2'
 
 (8.) Has full validation on the client side through JavaScript and server side through PHP.
       NO. I have been frustrated, and it has held me back trying to validate as I developed, so this
-      is not realized yet.
+      was not turned on. Inspection of the file in model directory shows my approach... I used regular expression.
+      yet the version I submitted does not haave this turned on.
 
