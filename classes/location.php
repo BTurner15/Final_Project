@@ -18,14 +18,15 @@
  * constants are all Uppercase
  * add PHPDoc to each class & function
  */
-
+//3456789_123456789_123456789_123456789_123456789_123456789_123456789_1234567890
+// the above is 80 characters
 class Location
 {
-    private $_POCName;
-    private $_streetAddress;
-    private $_city;
-    private $_province;
-    private $_postalCode;
+    private $_POCName;          // a string of the name of point-of-contact
+    private $_streetAddress;    // a string of the address of point-of-contact
+    private $_city;             // a string of the city of point-of-contact
+    private $_province;         // a string of the state, country, etc of point-of-contact
+    private $_postalCode;       // a string of the "code" (zip, international #, etc) of point-of-contact
     /**
      * Location constructor.
      * @param $POCName
@@ -52,7 +53,7 @@ class Location
     }
 
     /**
-     * @return string
+     * @return string (for example "Manager, John Doe, Hotel California")
      */
     public function getPOCName()
     {
@@ -60,7 +61,7 @@ class Location
     }
 
     /**
-     * @return string (usually a zip code)
+     * @return string (usually a zip code) (for "Hotel California")
      */
     public function getPostalCode()
     {
@@ -76,7 +77,7 @@ class Location
     }
 
     /**
-     * @return string (e.g. 123 Main Street #219)
+     * @return string (e.g. 123 Main Street #219) (for "Hotel California")
      */
     public function getStreetAddress()
     {
@@ -84,7 +85,7 @@ class Location
     }
 
     /**
-     * @param string $city
+     * @param string $city ("Los Angeles")
      */
     public function setCity($city)
     {
@@ -92,7 +93,7 @@ class Location
     }
 
     /**
-     * @param string $POCName
+     * @param string $POCName ("Manager, John Doe, Hotel California")
      */
     public function setPOCName($POCName)
     {
@@ -100,7 +101,7 @@ class Location
     }
 
     /**
-     * @param string $postalCode
+     * @param string $postalCode (zip, etc)
      */
     public function setPostalCode($postalCode)
     {
@@ -108,7 +109,7 @@ class Location
     }
 
     /**
-     * @param string $province
+     * @param string $province (can be "WA", or "BULGARIA")
      */
     public function setProvince($province)
     {
@@ -116,7 +117,7 @@ class Location
     }
 
     /**
-     * @param string $streetAddress
+     * @param string $streetAddress (this validated for international is difficult!)
      */
     public function setStreetAddress($streetAddress)
     {

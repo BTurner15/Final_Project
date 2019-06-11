@@ -20,12 +20,14 @@
  */
 //3456789_123456789_123456789_123456789_123456789_123456789_123456789_1234567890
 // the above is 80 characters
-
+/*
+ * the constructor. I am embarrassed I misspelled the word. My bad.
+ */
 class Occurence
 {
     private $_day;      //first day of event
     private $_month;    //month event occurs
-    private $_year;     //year
+    private $_year;     //year event occurs
     /**
      * Occurence constructor.
      * @param $day
@@ -41,7 +43,7 @@ class Occurence
     }
 
     /**
-     * @return integer
+     * @return integer day (1...31) event occurs (is scheduled to)
      */
     public function getDay()
     {
@@ -49,16 +51,15 @@ class Occurence
     }
 
     /**
-     * @return integer
+     * @return integer month (1..12) event occurs (is scheduled to)
      */
     public function getMonth()
     {
         return $this->_month;
     }
 
-
     /**
-     * @return integer
+     * @return integer year event occurs (is scheduled to occur)
      */
     public function getYear()
     {
@@ -66,7 +67,7 @@ class Occurence
     }
 
     /**
-     * @param integer $day
+     * @param integer $day of event (1...31)(is scheduled to occur)
      */
     public function setDay($day)
     {
@@ -74,7 +75,7 @@ class Occurence
     }
 
     /**
-     * @param integer $month
+     * @param integer $month of event (1...12)(is scheduled to occur)
      */
     public function setMonth($month)
     {
@@ -82,7 +83,7 @@ class Occurence
     }
 
     /**
-     * @param integer $year
+     * @param integer $year(is scheduled to) occur
      */
     public function setYear($year)
     {
